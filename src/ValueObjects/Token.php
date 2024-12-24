@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Esi\CloudflareTurnstile\ValueObjects;
 
 use InvalidArgumentException;
-use SensitiveParameter;
 use Stringable;
 
 /**
@@ -26,7 +25,7 @@ final readonly class Token implements Stringable
     /**
      * @throws InvalidArgumentException
      */
-    public function __construct(#[SensitiveParameter] private string $value)
+    public function __construct(private string $value)
     {
         if ($value === '') {
             throw new InvalidArgumentException('Token cannot be empty');

@@ -28,6 +28,7 @@ use PHPUnit\Framework\TestCase;
  * @psalm-api
  */
 #[CoversClass(VerifyConfiguration::class)]
+#[CoversClass(IdempotencyKey::class)]
 #[CoversClass(IpAddress::class)]
 #[CoversClass(Token::class)]
 final class VerifyConfigurationTest extends TestCase

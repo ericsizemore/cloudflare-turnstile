@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Esi\CloudflareTurnstile\ValueObjects;
 
-use SensitiveParameter;
 use Stringable;
 
 /**
@@ -22,7 +21,7 @@ use Stringable;
  */
 final readonly class IdempotencyKey implements Stringable
 {
-    public function __construct(#[SensitiveParameter] private string $value) {}
+    public function __construct(private string $value) {}
 
     public function __toString(): string
     {
