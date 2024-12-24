@@ -46,10 +46,18 @@ composer require esi/cloudflare-turnstile
 composer require symfony/http-client:^7.0 symfony/psr-http-message-bridge:^7.0 nyholm/psr7:^1.0
 
 # Option 2: Using Guzzle (recommended for Laravel projects)
-composer require guzzlehttp/guzzle:^7.0 guzzlehttp/psr7:^2.0
+composer require guzzlehttp/guzzle:^7.0
 
 # Option 3: Using Laminas
-composer require laminas/laminas-diactoros:^3.0 laminas/laminas-http:^2.0
+composer require laminas/laminas-diactoros:^3.0 php-http/curl-client:^2.0
+
+# Option 4: Using PHPHttp
+composer require nyholm/psr7:^1.0 php-http/curl-client:^2.0
+
+# Option 5: Using Buzz
+composer require kriswallsmith/buzz:^1.3 nyholm/psr7:^1.0
+
+# There are various combinations. Guzzle is all in one, while there are various combinations between Symfony, Laminas, PHPHttp, NyHolm, etc.
 ```
 
 #### PSR Implementation Libraries
@@ -72,7 +80,6 @@ Factory interfaces for PSR-7:
 * [Guzzle PSR-7](https://github.com/guzzle/psr7) - Includes PSR-17 factories.
 * [Laminas Diactoros](https://github.com/laminas/laminas-diactoros) - Includes PSR-17 factories.
 * [Nyholm PSR-7](https://github.com/Nyholm/psr7) - Includes PSR-17 factories.
-* [HTTP Factory Utils](https://github.com/php-http/message-factory) - Discovery library for HTTP Factories.
 
 ##### PSR-18: HTTP Client
 
@@ -80,9 +87,25 @@ HTTP Client implementations:
 
 * [Symfony HTTP Client](https://github.com/symfony/http-client) - Modern HTTP client with great features.
 * [Guzzle](https://github.com/guzzle/guzzle) - Popular HTTP client.
-* [PHP HTTP Client](https://github.com/php-http/curl-client) - Curl-based HTTP client.
-* [Buzz](https://github.com/kriswallsmith/Buzz) - Lightweight HTTP client.
-* [Nyholm PSR-18 Client](https://github.com/Nyholm/psr18-client) - Simple PSR-18 client implementation.
+* [PHP-HTTP Curl Client](https://github.com/php-http/curl-client) - cURL-based PSR-18 client.
+* [Buzz](https://github.com/kriswallsmith/Buzz) - Lightweight PSR-18 client.
+* [PHP-HTTP Socket Client](https://github.com/php-http/socket-client) - Socket-based PSR-18 client.
+
+##### Notes
+- Guzzle provides all required PSR implementations in one package.
+- Symfony HTTP Client requires a PSR-7 implementation (like Nyholm) to work as PSR-18.
+- PHP-HTTP Curl/Socket Client requires a PSR-7/17 implementation to be installed (like Nyholm or guzzlehttp/psr7).
+- Some combinations might require additional bridges or adapters.
+
+#### PSR Implementation Compatibility Matrix
+
+| PSR-18 HTTP Client  | PSR-7/17 Implementation | Additional Requirements |
+|---------------------|-------------------------|-------------------------|
+| Guzzle              | Built-in                | None                    |
+| Symfony HTTP Client | Nyholm PSR-7            | psr-http-message-bridge |
+| PHP-HTTP Curl       | Any PSR-7/17            | None                    |
+| Buzz                | Any PSR-7/17            | None                    |
+| Socket Client       | Any PSR-7/17            | None                    |
 
 #### Example Installation
 
@@ -95,13 +118,13 @@ composer require esi/cloudflare-turnstile symfony/http-client:^7.0 symfony/psr-h
 Using Guzzle:
 
 ```bash
-composer require esi/cloudflare-turnstile guzzlehttp/guzzle:^7.0 guzzlehttp/psr7:^2.0
+composer require esi/cloudflare-turnstile guzzlehttp/guzzle:^7.0
 ```
 
 Using Laminas:
 
 ```bash
-composer require esi/cloudflare-turnstile laminas/laminas-diactoros:^3.0 laminas/laminas-http:^2.0
+composer require esi/cloudflare-turnstile laminas/laminas-diactoros:^3.0 nyholm/psr7:^1.0
 ```
 
 ## Usage
@@ -113,6 +136,32 @@ use Esi\CloudflareTurnstile\ValueObjects\SecretKey;
 use Esi\CloudflareTurnstile\ValueObjects\Token;
 use Esi\CloudflareTurnstile\VerifyConfiguration;
 
+/**
+ * // Using Guzzle
+ * use GuzzleHttp\Client;
+ * use GuzzleHttp\Psr7\HttpFactory;
+ * 
+ * $client = new Client();
+ * $factory = new HttpFactory();
+ * $turnstile = new Turnstile($client, $factory, $factory, new SecretKey('your-secret-key'));
+ * 
+ * // Using Symfony HTTP Client
+ * use Symfony\Component\HttpClient\Psr18Client;
+ * use Nyholm\Psr7\Factory\Psr17Factory;
+ * 
+ * $client = new Psr18Client();
+ * $factory = new Psr17Factory();
+ * $turnstile = new Turnstile($client, $factory, $factory, new SecretKey('your-secret-key'));
+ * 
+ * // Using PHP-HTTP Curl Client
+ * use Http\Client\Curl\Client;
+ * use Nyholm\Psr7\Factory\Psr17Factory;
+ * 
+ * $factory = new Psr17Factory();
+ * $client = new Client();
+ * $turnstile = new Turnstile($client, $factory, $factory, new SecretKey('your-secret-key'));
+ */
+ 
 // Initialize with your preferred PSR-18 client and PSR-17 factories
 $httpClient = new \Your\Preferred\HttpClient();
 $requestFactory = new \Your\Preferred\RequestFactory();
@@ -267,6 +316,10 @@ See the [CHANGELOG](./CHANGELOG.md) for more information on what has changed rec
 ### License
 
 See the [LICENSE](./LICENSE) for more information on the license that applies to this project.
+
+### TODO
+
+See [TODO](./TODO.md) for more information on what is planned for future releases.
 
 ### Security
 

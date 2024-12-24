@@ -6,7 +6,7 @@ This guide demonstrates how to integrate the Cloudflare Turnstile library with L
 
 ```bash
 # Install the Turnstile library with Guzzle (recommended for Laravel)
-composer require esi/cloudflare-turnstile guzzlehttp/guzzle:^7.0 guzzlehttp/psr7:^2.0
+composer require esi/cloudflare-turnstile guzzlehttp/guzzle:^7.0
 ```
 
 ## Configuration

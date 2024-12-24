@@ -61,6 +61,16 @@
         "symfony/psr-http-message-bridge": "^7.0",
         "vimeo/psalm": "dev-master"
     },
+    "suggest": {
+        "guzzlehttp/guzzle": "A popular PSR-18 HTTP client, PSR-7 message implementation, and PSR-17 factory (~7.8)",
+        "kriswallsmith/buzz": "Lightweight PSR-18 compliant HTTP client (~1.2)",
+        "laminas/laminas-diactoros": "PSR-7 implementation and PSR-17 factory from the Laminas Project (~3.3)",
+        "nyholm/psr7": "A fast PHP PSR-7 implementation and PSR-17 factory (~1.8)",
+        "php-http/curl-client": "PSR-18 compliant HTTP client based on cURL (~2.3)",
+        "php-http/socket-client": "PSR-18 compliant HTTP client based on PHP streams (~2.1)",
+        "slim/psr7": "PSR-7 implementation and PSR-17 factory used by Slim Framework (~1.6)",
+        "symfony/http-client": "Symfony's PSR-18 compliant HTTP client (^6.4 || ^7.0)"
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
