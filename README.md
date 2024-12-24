@@ -231,6 +231,10 @@ See [docs/laravel.md](docs/laravel.md) and [docs/symfony.md](docs/symfony.md).
 
 See [docs/faq.md](docs/faq.md).
 
+### Performance Considerations
+
+See [docs/performance.md](docs/performance.md).
+
 ### Troubleshooting
 
 See [docs/troubleshooting.md](docs/troubleshooting.md).
