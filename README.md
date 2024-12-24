@@ -227,128 +227,13 @@ See [docs/laravel.md](docs/laravel.md) and [docs/symfony.md](docs/symfony.md).
 
 ## More Information
 
-### FAQ
+### Frequently Asked Questions
 
-#### General Questions
-
-**Q: What is Cloudflare Turnstile?**
-**A:** Cloudflare Turnstile is a CAPTCHA alternative that provides a user-friendly way to verify that your visitors are human without requiring them to solve puzzles.
-
-**Q: How does it compare to reCAPTCHA?**
-**A:** Turnstile is designed to be more privacy-friendly and user-friendly than traditional CAPTCHAs, using multiple non-interactive signals to verify users.
-
-#### Implementation Questions
-
-**Q: Can I use multiple widgets on the same page?**
-**A:** Yes, you can have multiple widgets on the same page. Each widget will need its own container:
-
-```html
-<div class="cf-turnstile" data-sitekey="KEY1"></div>
-<div class="cf-turnstile" data-sitekey="KEY2"></div>
-```
-
-**Q: How can I reset a widget?**
-
-**A:** You can reset a widget using the provided JavaScript API:
-
-```javascript
-turnstile.reset();
-// Or for a specific widget
-turnstile.reset('#widget-container');
-```
-
-#### Security Questions
-
-**Q: Is it safe to store the secret key in environment variables?**
-**A:** Yes, storing sensitive credentials in environment variables is a security best practice. Never commit these values to version control.
-
-**Q: Should I validate responses server-side?**
-**A:** Yes, always validate responses server-side. Client-side validation alone is not secure.
-
-### Related Documentation
-
-* [Official Cloudflare Turnstile Documentation](https://developers.cloudflare.com/turnstile/)
-* [Get Started Guide for Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/get-started/)
-* [Turnstile API Reference](https://developers.cloudflare.com/api/resources/turnstile/subresources/widgets/methods/list/)
-* [Widget Configuration Options](https://developers.cloudflare.com/turnstile/concepts/widget/)
-* [Client Side Rendering](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/)
-* [Error Codes Reference](https://developers.cloudflare.com/turnstile/get-started/server-side-validation/#error-codes)
-* [Migrating from ReCAPTCHA or hCAPTCHA](https://developers.cloudflare.com/turnstile/migration/)
+See [docs/faq.md](docs/faq.md).
 
 ### Troubleshooting
 
-**Common Issues**
-
-##### Widget Not Appearing
-```html
-   <!-- Check if you've included the script correctly -->
-   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-   
-   <!-- Verify the div element has the correct class and data attribute -->
-   <div class="cf-turnstile" data-sitekey="YOUR_SITE_KEY"></div>
-```   
-
-##### Invalid Site Key
-```php
-// Check your .env file
-TURNSTILE_SITE_KEY=1x00000000000000000000AA
-TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
-
-// Verify configuration loading
-echo config('services.turnstile.site_key'); // Laravel
-echo $this->getParameter('turnstile.site_key'); // Symfony
-```
-
-##### PSR Implementation Conflicts
-```bash
-# If you encounter version conflicts, try:
-composer why-not guzzlehttp/guzzle
-composer why-not symfony/http-client
-
-# Or explicitly require compatible versions:
-composer require guzzlehttp/guzzle:^7.8
-```
-
-##### Network Issues
-```php
-try {
-    $response = $turnstile->verify($config);
-} catch (\Psr\Http\Client\NetworkExceptionInterface $e) {
-    // Handle network timeouts
-    log_error('Turnstile network error: ' . $e->getMessage());
-} catch (\Psr\Http\Client\ClientExceptionInterface $e) {
-    // Handle other HTTP client errors
-    log_error('Turnstile client error: ' . $e->getMessage());
-}
-```
-
-#### Common Error Responses
-```php
-// Example error responses and their meanings
-[
-    'error-codes' => [
-        'missing-input-secret' => 'The secret key is missing',
-        'invalid-input-secret' => 'The secret key is invalid or malformed',
-        'missing-input-response' => 'The response parameter is missing',
-        'invalid-input-response' => 'The response parameter is invalid or malformed',
-        'bad-request' => 'The request is invalid or malformed',
-        'timeout-or-duplicate' => 'The response is no longer valid: either is too old or has been used previously',
-    ]
-];
-
-// How to handle specific errors
-switch ($response->getErrorCodes()[0] ?? '') {
-    case 'timeout-or-duplicate':
-        // Request new challenge
-        break;
-    case 'missing-input-secret':
-    case 'invalid-input-secret':
-        // Configuration error
-        log_error('Turnstile configuration error');
-        break;
-    // etc.
-}
-```
+See [docs/troubleshooting.md](docs/troubleshooting.md).
 
 ## About
 
