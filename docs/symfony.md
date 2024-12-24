@@ -2,6 +2,9 @@
 
 This guide demonstrates how to integrate the Cloudflare Turnstile library with Symfony 7.x.
 
+> [!IMPORTANT]
+> Guide is a work in progress. I have not been able to fully test this integration.
+
 ## Installation
 
 First, install the package via Composer:
