@@ -6,7 +6,6 @@
 [![Continuous Integration](https://github.com/ericsizemore/cloudflare-turnstile/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/ericsizemore/cloudflare-turnstile/actions/workflows/continuous-integration.yml)
 [![Type Coverage](https://shepherd.dev/github/ericsizemore/cloudflare-turnstile/coverage.svg)](https://shepherd.dev/github/ericsizemore/cloudflare-turnstile)
 [![Psalm Level](https://shepherd.dev/github/ericsizemore/cloudflare-turnstile/level.svg)](https://shepherd.dev/github/ericsizemore/cloudflare-turnstile)
-[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fericsizemore%2Fcloudflare-turnstile%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/ericsizemore/cloudflare-turnstile/main)
 [![Latest Stable Version](https://img.shields.io/packagist/v/esi/cloudflare-turnstile.svg)](https://packagist.org/packages/esi/cloudflare-turnstile)
 [![Downloads per Month](https://img.shields.io/packagist/dm/esi/cloudflare-turnstile.svg)](https://packagist.org/packages/esi/cloudflare-turnstile)
 [![License](https://img.shields.io/packagist/l/esi/cloudflare-turnstile.svg)](https://packagist.org/packages/esi/cloudflare-turnstile)
@@ -14,7 +13,7 @@
 `ericsizemore/cloudflare-turnstile` - A PHP library for server-side validation of Cloudflare Turnstile challenges. This library is PSR-18 compatible and framework-agnostic.
 
 > [!IMPORTANT]
-> WIP: This library is not yet finished.
+> WIP: This library is not yet finished. Not recommended for production yet.
 
 >[!NOTE]
 > This library requires additional libraries to work successfully. Please see [below](#psr-implementation-libraries).
@@ -137,17 +136,17 @@ try {
     
     if ($response->isSuccess()) {
         // Verification successful
-        echo "Challenge passed!";
+        echo 'Challenge passed!';
     } else {
         // Verification failed
-        echo "Challenge failed: " . implode(', ', $response->getErrorCodes());
+        echo 'Challenge failed: ' . implode(', ', $response->getErrorCodes());
     }
 } catch (\RuntimeException $e) {
     // Handle JSON decode errors
-    echo "Error: " . $e->getMessage();
+    echo 'Error: ' . $e->getMessage();
 } catch (\Psr\Http\Client\ClientExceptionInterface $e) {
     // Handle HTTP client errors
-    echo "HTTP Error: " . $e->getMessage();
+    echo 'HTTP Error: ' . $e->getMessage();
 }
 ```
 
