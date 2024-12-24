@@ -23,6 +23,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
+ * @psalm-api
  */
 #[CoversClass(IpAddress::class)]
 final class IpAddressTest extends TestCase

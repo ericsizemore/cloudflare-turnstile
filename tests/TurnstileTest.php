@@ -23,7 +23,6 @@ use Esi\CloudflareTurnstile\ValueObjects\Token;
 use Esi\CloudflareTurnstile\VerifyConfiguration;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -38,14 +37,16 @@ use RuntimeException;
 
 /**
  * @internal
+ *
+ * @psalm-api
  */
 #[CoversClass(Turnstile::class)]
-#[UsesClass(Response::class)]
-#[UsesClass(IdempotencyKey::class)]
-#[UsesClass(IpAddress::class)]
-#[UsesClass(SecretKey::class)]
-#[UsesClass(Token::class)]
-#[UsesClass(VerifyConfiguration::class)]
+#[CoversClass(Response::class)]
+#[CoversClass(IdempotencyKey::class)]
+#[CoversClass(IpAddress::class)]
+#[CoversClass(SecretKey::class)]
+#[CoversClass(Token::class)]
+#[CoversClass(VerifyConfiguration::class)]
 final class TurnstileTest extends TestCase
 {
     private ClientInterface&MockObject $httpClient;
@@ -140,6 +141,45 @@ final class TurnstileTest extends TestCase
         // Assertions
         self::assertFalse($result->isSuccess());
         self::assertEquals(['invalid-input-response'], $result->getErrorCodes());
+    }
+
+    #[Test]
+    public function verifyHandlesClientException(): void
+    {
+        $request = $this->createMock(RequestInterface::class);
+        $stream  = $this->createMock(StreamInterface::class);
+
+        $this->requestFactory
+            ->expects(self::once())
+            ->method('createRequest')
+            ->willReturn($request);
+
+        $request
+            ->expects(self::exactly(2))
+            ->method('withHeader')
+            ->willReturnSelf();
+
+        $this->streamFactory
+            ->expects(self::once())
+            ->method('createStream')
+            ->willReturn($stream);
+
+        $request
+            ->expects(self::once())
+            ->method('withBody')
+            ->willReturn($request);
+
+        $this->httpClient
+            ->expects(self::once())
+            ->method('sendRequest')
+            ->willThrowException(new class () extends \Exception implements ClientExceptionInterface {});
+
+        $config = new VerifyConfiguration(
+            new Token('test-token')
+        );
+
+        $this->expectException(ClientExceptionInterface::class);
+        $this->turnstile->verify($config);
     }
 
     /**

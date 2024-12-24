@@ -21,6 +21,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
+ * @psalm-api
  */
 #[CoversClass(Response::class)]
 final class ResponseTest extends TestCase
@@ -65,5 +67,21 @@ final class ResponseTest extends TestCase
         self::assertSame('custom-data', $response->getCdata());
         self::assertSame(['key' => 'value'], $response->getMetadata());
         self::assertSame($data, $response->getRawData());
+    }
+
+    #[Test]
+    public function responseHandlesErrorCodesCorrectly(): void
+    {
+        $data = [
+            'success'      => false,
+            'challenge_ts' => '2024-12-24T00:12:00Z',
+            'hostname'     => 'example.com',
+            'error-codes'  => ['error1', 'error2'],
+        ];
+
+        $response = new Response($data);
+
+        self::assertFalse($response->isSuccess());
+        self::assertSame(['error1', 'error2'], $response->getErrorCodes());
     }
 }
