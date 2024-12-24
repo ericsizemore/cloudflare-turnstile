@@ -7,7 +7,8 @@ This guide demonstrates how to integrate the Cloudflare Turnstile library with S
 First, install the package via Composer:
 
 ```bash
-composer require esi/cloudflare-turnstile
+# Install the Turnstile library with Symfony HTTP Client
+composer require esi/cloudflare-turnstile symfony/http-client:^7.0 symfony/psr-http-message-bridge:^7.0 nyholm/psr7:^1.0
 ```
 
 ## Configuration
@@ -18,6 +19,18 @@ Create a new configuration file `config/packages/turnstile.yaml`:
 parameters:
     turnstile.site_key: '%env(TURNSTILE_SITE_KEY)%'
     turnstile.secret_key: '%env(TURNSTILE_SECRET_KEY)%'
+```
+
+Modify `config/packages/framework.yaml`:
+
+```yaml 
+framework:
+    http_client:
+        scoped_clients:
+            turnstile.client:
+                base_uri: 'https://challenges.cloudflare.com'
+                timeout: 3
+                max_retries: 2
 ```
 
 Add your Turnstile credentials to your .env file:

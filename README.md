@@ -21,9 +21,37 @@
 
 --- 
 
+### Requirements
+
+* PHP >= 8.2
+* Composer
+* One of each:
+    * PSR-7 HTTP Message implementation
+    * PSR-17 HTTP Factory implementation
+    * PSR-18 HTTP Client implementation
+
+
 ## Installation
 
 This library is decoupled from any HTTP messaging client by using [PSR-7](https://www.php-fig.org/psr/psr-7/), [PSR-17](https://www.php-fig.org/psr/psr-17/), and [PSR-18](https://www.php-fig.org/psr/psr-18/).
+
+You can install the package via composer:
+
+```bash
+# First, install the base package
+composer require esi/cloudflare-turnstile
+
+# Then install your preferred PSR implementations. See 'PSR Implementation Libraries' below. For example:
+
+# Option 1: Using Symfony components (recommended for Symfony projects)
+composer require symfony/http-client:^7.0 symfony/psr-http-message-bridge:^7.0 nyholm/psr7:^1.0
+
+# Option 2: Using Guzzle (recommended for Laravel projects)
+composer require guzzlehttp/guzzle:^7.0 guzzlehttp/psr7:^2.0
+
+# Option 3: Using Laminas
+composer require laminas/laminas-diactoros:^3.0 laminas/laminas-http:^2.0
+```
 
 #### PSR Implementation Libraries
 
@@ -198,13 +226,6 @@ $rawData = $response->getRawData();
 See [docs/laravel.md](docs/laravel.md) and [docs/symfony.md](docs/symfony.md).
 
 ## About
-
-### Requirements
-
-* PHP >= 8.2
-* PSR-18 HTTP Client
-* PSR-17 HTTP Factory
-* PSR-7 HTTP Message
 
 ### Credits
 

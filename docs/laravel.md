@@ -4,10 +4,9 @@ This guide demonstrates how to integrate the Cloudflare Turnstile library with L
 
 ## Installation
 
-First, install the package via Composer:
-
 ```bash
-composer require esi/cloudflare-turnstile
+# Install the Turnstile library with Guzzle (recommended for Laravel)
+composer require esi/cloudflare-turnstile guzzlehttp/guzzle:^7.0 guzzlehttp/psr7:^2.0
 ```
 
 ## Configuration
@@ -39,19 +38,19 @@ namespace App\Providers;
 use Esi\CloudflareTurnstile\Turnstile;
 use Esi\CloudflareTurnstile\ValueObjects\SecretKey;
 use Illuminate\Support\ServiceProvider;
-use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\RequestFactoryInterface;
-use Psr\Http\Message\StreamFactoryInterface;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\HttpFactory;
 
 class TurnstileServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
         $this->app->singleton(Turnstile::class, function ($app) {
+            $factory = new HttpFactory();
             return new Turnstile(
-                $app->make(ClientInterface::class),
-                $app->make(RequestFactoryInterface::class),
-                $app->make(StreamFactoryInterface::class),
+                new Client(),
+                $factory,
+                $factory,
                 new SecretKey(config('services.turnstile.secret_key'))
             );
         });
