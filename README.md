@@ -3,12 +3,15 @@
 [![Build Status](https://scrutinizer-ci.com/g/ericsizemore/cloudflare-turnstile/badges/build.png?b=main)](https://scrutinizer-ci.com/g/ericsizemore/cloudflare-turnstile/build-status/main)
 [![Code Coverage](https://scrutinizer-ci.com/g/ericsizemore/cloudflare-turnstile/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/ericsizemore/cloudflare-turnstile/?branch=main)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ericsizemore/cloudflare-turnstile/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/ericsizemore/cloudflare-turnstile/?branch=main)
+[![PHP Version](https://img.shields.io/badge/php-%3E%3D8.2-blue)](https://php.net)
 [![Continuous Integration](https://github.com/ericsizemore/cloudflare-turnstile/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/ericsizemore/cloudflare-turnstile/actions/workflows/continuous-integration.yml)
 [![Type Coverage](https://shepherd.dev/github/ericsizemore/cloudflare-turnstile/coverage.svg)](https://shepherd.dev/github/ericsizemore/cloudflare-turnstile)
 [![Psalm Level](https://shepherd.dev/github/ericsizemore/cloudflare-turnstile/level.svg)](https://shepherd.dev/github/ericsizemore/cloudflare-turnstile)
 [![Latest Stable Version](https://img.shields.io/packagist/v/esi/cloudflare-turnstile.svg)](https://packagist.org/packages/esi/cloudflare-turnstile)
 [![Downloads per Month](https://img.shields.io/packagist/dm/esi/cloudflare-turnstile.svg)](https://packagist.org/packages/esi/cloudflare-turnstile)
 [![License](https://img.shields.io/packagist/l/esi/cloudflare-turnstile.svg)](https://packagist.org/packages/esi/cloudflare-turnstile)
+[![Coding Standards](https://img.shields.io/badge/cs-PER--CS%202.0-success)](https://www.php-fig.org/per/coding-style/)
+[![Coding Standards](https://img.shields.io/badge/cs-PSR--12-success)](https://www.php-fig.org/psr/psr-12/)
 
 `ericsizemore/cloudflare-turnstile` - A PHP library for server-side validation of Cloudflare Turnstile challenges. This library is PSR-18 compatible and framework-agnostic.
 
