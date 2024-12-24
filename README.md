@@ -25,7 +25,8 @@ You can install the package via composer:
 $ composer require esi/cloudflare-turnstile
 ```
 
-You will also need to install libraries for [PSR-18 HTTP Client](), [PSR-17 HTTP Factory](), and a [PSR-7 HTTP Message]().
+This library is decoupled from any HTTP messaging client by using [PSR-7](https://www.php-fig.org/psr/psr-7/), [PSR-17](https://www.php-fig.org/psr/psr-17/), and [PSR-18](https://www.php-fig.org/psr/psr-18/).
+
 
 #### PSR Implementation Libraries
 
