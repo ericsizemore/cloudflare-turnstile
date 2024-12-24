@@ -44,6 +44,7 @@ final class ResponseTest extends TestCase
         self::assertNull($response->getCdata());
         self::assertSame([], $response->getMetadata());
     }
+
     #[Test]
     public function createSuccessfulResponse(): void
     {

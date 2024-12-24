@@ -50,9 +50,11 @@ use RuntimeException;
 final class TurnstileTest extends TestCase
 {
     private ClientInterface&MockObject $httpClient;
+
     private MockObject&RequestFactoryInterface $requestFactory;
-    private SecretKey $secretKey;
+
     private MockObject&StreamFactoryInterface $streamFactory;
+
     private Turnstile $turnstile;
 
     /**
@@ -63,13 +65,13 @@ final class TurnstileTest extends TestCase
         $this->httpClient     = $this->createMock(ClientInterface::class);
         $this->requestFactory = $this->createMock(RequestFactoryInterface::class);
         $this->streamFactory  = $this->createMock(StreamFactoryInterface::class);
-        $this->secretKey      = new SecretKey('test-secret-key');
+        $secretKey            = new SecretKey('test-secret-key');
 
         $this->turnstile = new Turnstile(
             $this->httpClient,
             $this->requestFactory,
             $this->streamFactory,
-            $this->secretKey
+            $secretKey
         );
     }
 
@@ -140,7 +142,7 @@ final class TurnstileTest extends TestCase
 
         // Assertions
         self::assertFalse($result->isSuccess());
-        self::assertEquals(['invalid-input-response'], $result->getErrorCodes());
+        self::assertSame(['invalid-input-response'], $result->getErrorCodes());
     }
 
     #[Test]

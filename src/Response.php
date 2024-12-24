@@ -30,17 +30,23 @@ namespace Esi\CloudflareTurnstile;
 final readonly class Response
 {
     private ?string $action;
+
     private ?string $cdata;
+
     private string $challengeTs;
+
     /** @var array<string> */
     private array $errorCodes;
+
     private string $hostname;
+
     /**
      * Note: Enterprise Only.
      *
      * @var array{}|string[]
      */
     private array $metadata;
+
     private bool $success;
 
     /**

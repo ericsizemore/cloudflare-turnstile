@@ -53,6 +53,7 @@ final class VerifyConfigurationTest extends TestCase
         self::assertSame($idempotencyKey, $config->getIdempotencyKey());
         self::assertSame($customData, $config->getCustomData());
     }
+
     #[Test]
     public function createMinimalConfiguration(): void
     {

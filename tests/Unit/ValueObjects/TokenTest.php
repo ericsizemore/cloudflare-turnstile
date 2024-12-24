@@ -35,6 +35,7 @@ final class TokenTest extends TestCase
         $this->expectExceptionMessage('Token cannot be empty');
         new Token('');
     }
+
     #[Test]
     public function validTokenCreation(): void
     {

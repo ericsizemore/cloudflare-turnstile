@@ -33,6 +33,7 @@ final class IdempotencyKeyTest extends TestCase
         $key = new IdempotencyKey('');
         self::assertSame('', (string) $key);
     }
+
     #[Test]
     public function validIdempotencyKeyCreation(): void
     {

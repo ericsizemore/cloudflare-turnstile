@@ -35,6 +35,7 @@ final class SecretKeyTest extends TestCase
         $this->expectExceptionMessage('Secret key cannot be empty');
         new SecretKey('');
     }
+
     #[Test]
     public function validSecretKeyCreation(): void
     {

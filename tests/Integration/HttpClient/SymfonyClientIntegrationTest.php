@@ -44,7 +44,9 @@ use Symfony\Component\HttpClient\Response\MockResponse;
 final class SymfonyClientIntegrationTest extends TestCase
 {
     private MockHttpClient $mockHttpClient;
+
     private Psr17Factory $psr17Factory;
+
     private Turnstile $turnstile;
 
     protected function setUp(): void

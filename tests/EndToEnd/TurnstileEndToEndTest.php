@@ -33,8 +33,11 @@ use Symfony\Component\HttpClient\Psr18Client;
 final class TurnstileEndToEndTest extends TestCase
 {
     private const INVALID_SECRET = '1x0000000000000000000000000000000000000000';
-    private const INVALID_TOKEN  = '0x0000000000000000000000000000000000000000';
+
+    private const INVALID_TOKEN = '0x0000000000000000000000000000000000000000';
+
     private string $secretKey;
+
     private Turnstile $turnstile;
 
     protected function setUp(): void
@@ -45,6 +48,7 @@ final class TurnstileEndToEndTest extends TestCase
         if ($secretKey === '' || $secretKey === false) {
             self::markTestSkipped('CLOUDFLARE_TURNSTILE_SECRET_KEY environment variable not set');
         }
+
         $this->secretKey = $secretKey;
 
         $client          = new Psr18Client();
@@ -76,7 +80,7 @@ final class TurnstileEndToEndTest extends TestCase
         );
 
         // Make multiple requests to ensure rate limiting isn't triggered
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 3; ++$i) {
             $response = $this->turnstile->verify($config);
             self::assertFalse($response->isSuccess());
             self::assertContains('invalid-input-response', $response->getErrorCodes());

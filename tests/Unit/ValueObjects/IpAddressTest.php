@@ -15,7 +15,9 @@ declare(strict_types=1);
 namespace Esi\CloudflareTurnstile\Tests\Unit\ValueObjects;
 
 use Esi\CloudflareTurnstile\ValueObjects\IpAddress;
+use Generator;
 use InvalidArgumentException;
+use Iterator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -36,6 +38,7 @@ final class IpAddressTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         new IpAddress($ip);
     }
+
     #[Test]
     #[DataProvider('validIpAddresses')]
     public function validIpAddressCreation(string $ip): void
@@ -45,28 +48,24 @@ final class IpAddressTest extends TestCase
     }
 
     /**
-     * @return list<list<string>>
+     * @return Generator<int, list<string>>
      */
-    public static function invalidIpAddresses(): array
+    public static function invalidIpAddresses(): Generator
     {
-        return [
-            ['256.256.256.256'],
-            ['not.an.ip.address'],
-            ['127.0.0'],
-            [''],
-        ];
+        yield ['256.256.256.256'];
+        yield ['not.an.ip.address'];
+        yield ['127.0.0'];
+        yield [''];
     }
 
     /**
-     * @return list<list<string>>
+     * @return Generator<int, list<string>>
      */
-    public static function validIpAddresses(): array
+    public static function validIpAddresses(): Generator
     {
-        return [
-            ['127.0.0.1'],
-            ['192.168.1.1'],
-            ['::1'],
-            ['2001:0db8:85a3:0000:0000:8a2e:0370:7334'],
-        ];
+        yield ['127.0.0.1'];
+        yield ['192.168.1.1'];
+        yield ['::1'];
+        yield ['2001:0db8:85a3:0000:0000:8a2e:0370:7334'];
     }
 }

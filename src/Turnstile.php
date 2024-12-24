@@ -58,11 +58,11 @@ final readonly class Turnstile
             'response' => (string) $config->getToken(),
         ];
 
-        if ($config->getRemoteIp() !== null) {
+        if ($config->getRemoteIp() instanceof ValueObjects\IpAddress) {
             $params['remoteip'] = (string) $config->getRemoteIp();
         }
 
-        if ($config->getIdempotencyKey() !== null) {
+        if ($config->getIdempotencyKey() instanceof ValueObjects\IdempotencyKey) {
             $params['idempotency_key'] = (string) $config->getIdempotencyKey();
         }
 
