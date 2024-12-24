@@ -13,20 +13,17 @@
 
 `ericsizemore/cloudflare-turnstile` - A PHP library for server-side validation of Cloudflare Turnstile challenges. This library is PSR-18 compatible and framework-agnostic.
 
-> [!WIP]
-> This library is not yet finished.
+> [!IMPORTANT]
+> WIP: This library is not yet finished.
 
+>[!NOTE]
+> This library requires additional libraries to work successfully. Please see [below](#psr-implementation-libraries).
+
+--- 
 
 ## Installation
 
-You can install the package via composer:
-
-``` bash
-$ composer require esi/cloudflare-turnstile
-```
-
 This library is decoupled from any HTTP messaging client by using [PSR-7](https://www.php-fig.org/psr/psr-7/), [PSR-17](https://www.php-fig.org/psr/psr-17/), and [PSR-18](https://www.php-fig.org/psr/psr-18/).
-
 
 #### PSR Implementation Libraries
 
@@ -65,19 +62,19 @@ HTTP Client implementations:
 Using Symfony components:
 
 ```bash
-composer require symfony/http-client symfony/psr-http-message-bridge nyholm/psr7
+composer require esi/cloudflare-turnstile symfony/http-client:^7.0 symfony/psr-http-message-bridge:^7.0 nyholm/psr7:^1.0
 ```
 
 Using Guzzle:
 
 ```bash
-composer require guzzlehttp/guzzle guzzlehttp/psr7
+composer require esi/cloudflare-turnstile guzzlehttp/guzzle:^7.0 guzzlehttp/psr7:^2.0
 ```
 
 Using Laminas:
 
 ```bash
-composer require laminas/laminas-diactoros laminas/laminas-http
+composer require esi/cloudflare-turnstile laminas/laminas-diactoros:^3.0 laminas/laminas-http:^2.0
 ```
 
 ## Usage
