@@ -12,7 +12,7 @@ declare(strict_types=1);
  * this source code.
  */
 
-namespace Esi\CloudflareTurnstile\Tests\ValueObjects;
+namespace Esi\CloudflareTurnstile\Tests\Unit\ValueObjects;
 
 use Esi\CloudflareTurnstile\ValueObjects\Token;
 use InvalidArgumentException;

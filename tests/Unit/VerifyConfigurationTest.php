@@ -12,7 +12,7 @@ declare(strict_types=1);
  * this source code.
  */
 
-namespace Esi\CloudflareTurnstile\Tests;
+namespace Esi\CloudflareTurnstile\Tests\Unit;
 
 use Esi\CloudflareTurnstile\ValueObjects\IdempotencyKey;
 use Esi\CloudflareTurnstile\ValueObjects\IpAddress;
