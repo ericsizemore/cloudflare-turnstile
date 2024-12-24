@@ -11,14 +11,11 @@
 [![Downloads per Month](https://img.shields.io/packagist/dm/esi/cloudflare-turnstile.svg)](https://packagist.org/packages/esi/cloudflare-turnstile)
 [![License](https://img.shields.io/packagist/l/esi/cloudflare-turnstile.svg)](https://packagist.org/packages/esi/cloudflare-turnstile)
 
-`ericsizemore/cloudflare-turnstile` started as a template to be used for my own future repos/libraries, with the goal of eventually bringing my current repos to parity with this setup.
-
-This package can be used to create a basic PHP library package/repository, complete with a directory structure and starting files (i.e., README, LICENSE, issue templates, PHPUnit configuration, etc.) commonly found in PHP libraries.
+`ericsizemore/cloudflare-turnstile` - A PHP library for server-side validation of Cloudflare Turnstile challenges. This library is PSR-18 compatible and framework-agnostic.
 
 > [!WIP]
 > This library is not yet finished.
 
----
 
 ## Installation
 
@@ -28,17 +25,188 @@ You can install the package via composer:
 $ composer require esi/cloudflare-turnstile
 ```
 
+You will also need to install libraries for [PSR-18 HTTP Client](), [PSR-17 HTTP Factory](), and a [PSR-7 HTTP Message]().
+
+#### PSR Implementation Libraries
+
+Below are some recommended libraries that implement the required PSR interfaces. You'll need one implementation of each PSR to use this library.
+
+##### PSR-7: HTTP Message Interface
+
+HTTP message and URI interface implementations:
+
+* [Guzzle PSR-7](https://github.com/guzzle/psr7) - One of the most popular PSR-7 implementations.
+* [Laminas Diactoros](https://github.com/laminas/laminas-diactoros) - Former Zend Framework PSR-7 implementation.
+* [Nyholm PSR-7](https://github.com/Nyholm/psr7) - Lightweight PSR-7 implementation.
+* [Slim PSR-7](https://github.com/slimphp/Slim-Psr7) - Slim Framework's PSR-7 implementation.
+
+##### PSR-17: HTTP Factories
+
+Factory interfaces for PSR-7:
+
+* [Guzzle PSR-7](https://github.com/guzzle/psr7) - Includes PSR-17 factories.
+* [Laminas Diactoros](https://github.com/laminas/laminas-diactoros) - Includes PSR-17 factories.
+* [Nyholm PSR-7](https://github.com/Nyholm/psr7) - Includes PSR-17 factories.
+* [HTTP Factory Utils](https://github.com/php-http/message-factory) - Discovery library for HTTP Factories.
+
+##### PSR-18: HTTP Client
+
+HTTP Client implementations:
+
+* [Symfony HTTP Client](https://github.com/symfony/http-client) - Modern HTTP client with great features.
+* [Guzzle](https://github.com/guzzle/guzzle) - Popular HTTP client.
+* [PHP HTTP Client](https://github.com/php-http/curl-client) - Curl-based HTTP client.
+* [Buzz](https://github.com/kriswallsmith/Buzz) - Lightweight HTTP client.
+* [Nyholm PSR-18 Client](https://github.com/Nyholm/psr18-client) - Simple PSR-18 client implementation.
+
+#### Example Installation
+
+Using Symfony components:
+
+```bash
+composer require symfony/http-client symfony/psr-http-message-bridge nyholm/psr7
+```
+
+Using Guzzle:
+
+```bash
+composer require guzzlehttp/guzzle guzzlehttp/psr7
+```
+
+Using Laminas:
+
+```bash
+composer require laminas/laminas-diactoros laminas/laminas-http
+```
+
 ## Usage
 
+#### Basic Usage
 ```php
-// usage information here
+use Esi\CloudflareTurnstile\Turnstile;
+use Esi\CloudflareTurnstile\ValueObjects\SecretKey;
+use Esi\CloudflareTurnstile\ValueObjects\Token;
+use Esi\CloudflareTurnstile\VerifyConfiguration;
+
+// Initialize with your preferred PSR-18 client and PSR-17 factories
+$httpClient = new \Your\Preferred\HttpClient();
+$requestFactory = new \Your\Preferred\RequestFactory();
+$streamFactory = new \Your\Preferred\StreamFactory();
+
+// Create the Turnstile client
+$turnstile = new Turnstile(
+    $httpClient,
+    $requestFactory,
+    $streamFactory,
+    new SecretKey('your-secret-key')
+);
+
+// Create configuration with the response token from the frontend
+$config = new VerifyConfiguration(
+    new Token('response-token-from-widget')
+);
+
+try {
+    $response = $turnstile->verify($config);
+    
+    if ($response->isSuccess()) {
+        // Verification successful
+        echo "Challenge passed!";
+    } else {
+        // Verification failed
+        echo "Challenge failed: " . implode(', ', $response->getErrorCodes());
+    }
+} catch (\RuntimeException $e) {
+    // Handle JSON decode errors
+    echo "Error: " . $e->getMessage();
+} catch (\Psr\Http\Client\ClientExceptionInterface $e) {
+    // Handle HTTP client errors
+    echo "HTTP Error: " . $e->getMessage();
+}
 ```
+
+#### Advanced Usage
+
+##### Using all available options.
+
+```php
+use Esi\CloudflareTurnstile\Turnstile;
+use Esi\CloudflareTurnstile\ValueObjects\IdempotencyKey;
+use Esi\CloudflareTurnstile\ValueObjects\IpAddress;
+use Esi\CloudflareTurnstile\ValueObjects\SecretKey;
+use Esi\CloudflareTurnstile\ValueObjects\Token;
+use Esi\CloudflareTurnstile\VerifyConfiguration;
+
+// Initialize with your preferred PSR-18 client and PSR-17 factories
+$httpClient = new \Your\Preferred\HttpClient();
+$requestFactory = new \Your\Preferred\RequestFactory();
+$streamFactory = new \Your\Preferred\StreamFactory();
+
+// Create the Turnstile client
+$turnstile = new Turnstile(
+    $httpClient,
+    $requestFactory,
+    $streamFactory,
+    new SecretKey('your-secret-key')
+);
+
+// Create configuration with all available options
+$config = new VerifyConfiguration(
+    new Token('response-token-from-widget'),
+    new IpAddress('127.0.0.1'),              // Optional: Client IP address
+    new IdempotencyKey('unique-request-id'), // Optional: Idempotency key
+    [                                        // Optional: Custom data
+        'action' => 'login',
+        'cdata' => 'custom-verification-data'
+    ]
+);
+
+$response = $turnstile->verify($config);
+```
+
+##### Reading the response.
+The response object provides several methods to access verification details:
+
+```php
+$response = $turnstile->verify($config);
+
+// Basic verification status
+$success = $response->isSuccess();
+
+// Timestamp of the challenge
+$timestamp = $response->getChallengeTs();
+
+// Hostname where the challenge was solved
+$hostname = $response->getHostname();
+
+// Any error codes returned
+$errorCodes = $response->getErrorCodes();
+
+// Optional action name (if set in widget)
+$action = $response->getAction();
+
+// Optional custom data (if provided)
+$customData = $response->getCdata();
+
+// Enterprise only: metadata
+$metadata = $response->getMetadata();
+
+// Access the raw response data
+$rawData = $response->getRawData();
+```
+
+## Framework Integration Examples
+
+See [docs/laravel.md](docs/laravel.md) and [docs/symfony.md](docs/symfony.md).
 
 ## About
 
 ### Requirements
 
 * PHP >= 8.2
+* PSR-18 HTTP Client
+* PSR-17 HTTP Factory
+* PSR-7 HTTP Message
 
 ### Credits
 
