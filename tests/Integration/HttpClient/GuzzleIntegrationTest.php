@@ -45,11 +45,10 @@ use Psr\Http\Client\ClientExceptionInterface;
 #[CoversClass(VerifyConfiguration::class)]
 final class GuzzleIntegrationTest extends TestCase
 {
-    private HttpFactory $factory;
-
     private MockHandler $mockHandler;
 
     private Turnstile $turnstile;
+
     protected function setUp(): void
     {
         $this->mockHandler = new MockHandler();
@@ -60,15 +59,16 @@ final class GuzzleIntegrationTest extends TestCase
             'http_errors' => true,
         ]);
 
-        $this->factory = new HttpFactory();
+        $factory = new HttpFactory();
 
         $this->turnstile = new Turnstile(
             $client,
-            $this->factory,
-            $this->factory,
+            $factory,
+            $factory,
             new SecretKey('test-secret-key')
         );
     }
+
     public function testDnsError(): void
     {
         $this->mockHandler->append(
@@ -89,6 +89,7 @@ final class GuzzleIntegrationTest extends TestCase
 
         $this->turnstile->verify($config);
     }
+
     public function testFailedVerification(): void
     {
         // Mock a failed response
@@ -110,6 +111,7 @@ final class GuzzleIntegrationTest extends TestCase
         self::assertFalse($response->isSuccess());
         self::assertSame(['invalid-input-response'], $response->getErrorCodes());
     }
+
     public function testMalformedResponse(): void
     {
         // Mock an invalid JSON response
@@ -125,6 +127,7 @@ final class GuzzleIntegrationTest extends TestCase
         $this->expectExceptionMessage('Failed to decode Turnstile response');
         $this->turnstile->verify($config);
     }
+
     public function testNetworkError(): void
     {
         // Mock a network error using ConnectException
@@ -144,6 +147,7 @@ final class GuzzleIntegrationTest extends TestCase
 
         $this->turnstile->verify($config);
     }
+
     public function testRequestFormat(): void
     {
         $this->mockHandler->append(
@@ -173,6 +177,7 @@ final class GuzzleIntegrationTest extends TestCase
             $lastRequest->getHeaderLine('Accept')
         );
     }
+
     public function testSuccessfulVerification(): void
     {
         // Mock a successful response
@@ -199,6 +204,7 @@ final class GuzzleIntegrationTest extends TestCase
         self::assertSame('test', $response->getAction());
         self::assertSame('test-data', $response->getCdata());
     }
+
     public function testTimeoutError(): void
     {
         $this->mockHandler->append(
@@ -219,6 +225,7 @@ final class GuzzleIntegrationTest extends TestCase
 
         $this->turnstile->verify($config);
     }
+
     public function testWithCustomData(): void
     {
         // Mock a successful response with custom data

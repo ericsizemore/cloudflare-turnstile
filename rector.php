@@ -6,6 +6,7 @@ use Rector\CodeQuality\Rector\Concat\JoinStringConcatRector;
 use Rector\Config\RectorConfig;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitSelfCallRector;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
+use Rector\PHPUnit\CodeQuality\Rector\MethodCall\AssertEqualsToSameRector;
 
 return RectorConfig::configure()
     ->withParallel()
@@ -17,6 +18,7 @@ return RectorConfig::configure()
         __DIR__ . '/build/rector'
     )
     ->withRules([
+        AssertEqualsToSameRector::class,
         PreferPHPUnitSelfCallRector::class,
     ])
     ->withSkip([

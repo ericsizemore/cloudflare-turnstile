@@ -17,7 +17,6 @@ namespace Esi\CloudflareTurnstile\Tests\Unit\ValueObjects;
 use Esi\CloudflareTurnstile\ValueObjects\IpAddress;
 use Generator;
 use InvalidArgumentException;
-use Iterator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
