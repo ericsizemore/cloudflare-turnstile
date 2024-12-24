@@ -127,7 +127,7 @@ composer require esi/cloudflare-turnstile guzzlehttp/guzzle:^7.0
 Using Laminas:
 
 ```bash
-composer require esi/cloudflare-turnstile laminas/laminas-diactoros:^3.0 nyholm/psr7:^1.0
+composer require esi/cloudflare-turnstile laminas/laminas-diactoros:^3.0 php-http/curl-client:^2.0
 ```
 
 ## Usage
