@@ -6,7 +6,7 @@
 // Example using PSR-6 cache
 public function verify(VerifyConfiguration $config): Response
 {
-    $cacheKey = 'turnstile_' . md5((string)$config->getToken());
+    $cacheKey = 'turnstile_' . md5((string) $config->getToken());
 
     // Check cache first
     if ($cachedResponse = $this->cache->getItem($cacheKey)->get()) {

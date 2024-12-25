@@ -63,6 +63,45 @@ jobs:
         with:
           sarif_file: results.sarif
 
+  mutation-test:
+    name: "Infection/Mutation Test ${{ matrix.php }}"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [ '8.2', '8.3', '8.4' ]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "Install PHP ${{ matrix.php }}"
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: "${{ matrix.php }}"
+          extensions: mbstring
+          coverage: xdebug
+
+      - name: "Validate composer.json and composer.lock"
+        run: composer validate --strict
+
+      - name: "Setup Composer, install dependencies"
+        uses: ramsey/composer-install@v3
+        with:
+          composer-options: "--prefer-dist --optimize-autoloader"
+          require-lock-file: "true"
+
+      - name: "Run Infection"
+        if: github.event_name != 'pull_request'
+        run: composer run-script infection
+        env:
+          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+
+      - name: "Run Infection, Pull Request"
+        if: github.event_name == 'pull_request'
+        run: |
+          git fetch origin $GITHUB_BASE_REF
+          php vendor/bin/infection --threads=max --git-diff-lines --git-diff-base=origin/$GITHUB_BASE_REF --configuration=infection.json5 --min-msi=100 --min-covered-msi=100
+        env:
+          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+
   unit-test:
     name: "Run Unit Tests ${{ matrix.php }}"
     runs-on: ubuntu-latest

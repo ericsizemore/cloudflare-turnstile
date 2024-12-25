@@ -75,6 +75,67 @@ final class TurnstileTest extends TestCase
         );
     }
 
+    #[Test]
+    public function verifyEnsuresProperStringCasting(): void
+    {
+        $request    = $this->createMock(RequestInterface::class);
+        $response   = $this->createMock(ResponseInterface::class);
+        $stream     = $this->createMock(StreamInterface::class);
+        $bodyStream = $this->createMock(StreamInterface::class);
+
+        $capturedParams = null;
+        $this->streamFactory->method('createStream')
+            ->willReturnCallback(static function (string $content) use ($stream, &$capturedParams): MockObject&StreamInterface {
+                $capturedParams = $content;
+                return $stream;
+            });
+
+        $this->setupMocks($request, $response, $stream, $bodyStream);
+
+        $config = new VerifyConfiguration(
+            new Token('test-token'),
+            new IpAddress('127.0.0.1'),
+            new IdempotencyKey('test-key')
+        );
+
+        $this->turnstile->verify($config);
+
+        $params = [];
+
+        self::assertNotNull($capturedParams);
+        parse_str($capturedParams, $params);
+        self::assertSame('test-token', $params['response']);
+        self::assertSame('127.0.0.1', $params['remoteip']);
+        self::assertSame('test-key', $params['idempotency_key']);
+    }
+
+    #[Test]
+    public function verifyEnsuresSecretKeyIsPresent(): void
+    {
+        $request    = $this->createMock(RequestInterface::class);
+        $response   = $this->createMock(ResponseInterface::class);
+        $stream     = $this->createMock(StreamInterface::class);
+        $bodyStream = $this->createMock(StreamInterface::class);
+
+        $capturedParams = null;
+        $this->streamFactory->method('createStream')
+            ->willReturnCallback(static function (string $content) use ($stream, &$capturedParams): MockObject&StreamInterface {
+                $capturedParams = $content;
+                return $stream;
+            });
+
+        $this->setupMocks($request, $response, $stream, $bodyStream);
+
+        $config = new VerifyConfiguration(new Token('test-token'));
+        $this->turnstile->verify($config);
+
+        $params = [];
+        self::assertNotNull($capturedParams);
+        parse_str($capturedParams, $params);
+        self::assertArrayHasKey('secret', $params);
+        self::assertSame('test-secret-key', $params['secret']);
+    }
+
     /**
      * @throws Exception
      * @throws ClientExceptionInterface
@@ -181,6 +242,142 @@ final class TurnstileTest extends TestCase
         );
 
         $this->expectException(ClientExceptionInterface::class);
+        $this->turnstile->verify($config);
+    }
+
+    #[Test]
+    public function verifyHandlesCustomDataCorrectly(): void
+    {
+        $request    = $this->createMock(RequestInterface::class);
+        $response   = $this->createMock(ResponseInterface::class);
+        $stream     = $this->createMock(StreamInterface::class);
+        $bodyStream = $this->createMock(StreamInterface::class);
+
+        $capturedParams = null;
+        $this->streamFactory->method('createStream')
+            ->willReturnCallback(static function (string $content) use ($stream, &$capturedParams): MockObject&StreamInterface {
+                $capturedParams = $content;
+                return $stream;
+            });
+
+        $this->setupMocks($request, $response, $stream, $bodyStream);
+
+        $config = new VerifyConfiguration(
+            new Token('test-token'),
+            null,
+            null,
+            ['custom_key' => 'custom_value']
+        );
+
+        $this->turnstile->verify($config);
+
+        $params = [];
+
+        self::assertNotNull($capturedParams);
+        parse_str($capturedParams, $params);
+        self::assertSame('custom_value', $params['custom_key']);
+    }
+
+    #[Test]
+    public function verifyHandlesInstanceOfChecksCorrectly(): void
+    {
+        $request    = $this->createMock(RequestInterface::class);
+        $response   = $this->createMock(ResponseInterface::class);
+        $stream     = $this->createMock(StreamInterface::class);
+        $bodyStream = $this->createMock(StreamInterface::class);
+
+        $capturedParams = null;
+        $this->streamFactory->method('createStream')
+            ->willReturnCallback(static function (string $content) use ($stream, &$capturedParams): MockObject&StreamInterface {
+                $capturedParams = $content;
+                return $stream;
+            });
+
+        $this->setupMocks($request, $response, $stream, $bodyStream);
+
+        // Test without optional parameters
+        $configWithoutOptionals = new VerifyConfiguration(new Token('test-token'));
+        $this->turnstile->verify($configWithoutOptionals);
+
+        $params = [];
+        self::assertNotNull($capturedParams);
+        parse_str($capturedParams, $params);
+        self::assertArrayNotHasKey('remoteip', $params);
+        self::assertArrayNotHasKey('idempotency_key', $params);
+
+        // Test with optional parameters
+        $configWithOptionals = new VerifyConfiguration(
+            new Token('test-token'),
+            new IpAddress('127.0.0.1'),
+            new IdempotencyKey('test-key')
+        );
+
+        $this->turnstile->verify($configWithOptionals);
+
+        $params = [];
+
+        parse_str($capturedParams, $params);
+        self::assertArrayHasKey('remoteip', $params);
+        self::assertArrayHasKey('idempotency_key', $params);
+    }
+
+    #[Test]
+    public function verifyHandlesInvalidJsonResponse(): void
+    {
+        $request    = $this->createMock(RequestInterface::class);
+        $response   = $this->createMock(ResponseInterface::class);
+        $stream     = $this->createMock(StreamInterface::class);
+        $bodyStream = $this->createMock(StreamInterface::class);
+
+        $bodyStream->method('__toString')->willReturn('null'); // This will decode to null, not an array
+
+        $this->setupMocks($request, $response, $stream, $bodyStream);
+
+        $config = new VerifyConfiguration(new Token('test-token'));
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Failed to decode Turnstile response');
+
+        $this->turnstile->verify($config);
+    }
+
+    #[Test]
+    public function verifyHandlesJsonErrorsCorrectly(): void
+    {
+        $request    = $this->createMock(RequestInterface::class);
+        $response   = $this->createMock(ResponseInterface::class);
+        $stream     = $this->createMock(StreamInterface::class);
+        $bodyStream = $this->createMock(StreamInterface::class);
+
+        $bodyStream->method('__toString')->willReturn('invalid json');
+
+        $this->setupMocks($request, $response, $stream, $bodyStream);
+
+        $config = new VerifyConfiguration(new Token('test-token'));
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Failed to decode Turnstile response');
+
+        $this->turnstile->verify($config);
+    }
+
+    #[Test]
+    public function verifyHandlesJsonSyntaxError(): void
+    {
+        $request    = $this->createMock(RequestInterface::class);
+        $response   = $this->createMock(ResponseInterface::class);
+        $stream     = $this->createMock(StreamInterface::class);
+        $bodyStream = $this->createMock(StreamInterface::class);
+
+        $bodyStream->method('__toString')->willReturn('{invalid json}'); // This will cause a JSON syntax error
+
+        $this->setupMocks($request, $response, $stream, $bodyStream);
+
+        $config = new VerifyConfiguration(new Token('test-token'));
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Failed to decode Turnstile response');
+
         $this->turnstile->verify($config);
     }
 
@@ -323,5 +520,37 @@ final class TurnstileTest extends TestCase
         self::assertSame([], $result->getErrorCodes());
         self::assertSame('login', $result->getAction());
         self::assertSame('some-data', $result->getCdata());
+    }
+
+    private function setupMocks(
+        MockObject&RequestInterface $request,
+        MockObject&ResponseInterface $response,
+        MockObject&StreamInterface $stream,
+        MockObject&StreamInterface $bodyStream
+    ): void {
+        $capturedBody = '';
+
+        $this->requestFactory->method('createRequest')->willReturn($request);
+        $request->method('withHeader')->willReturnSelf();
+
+        $this->streamFactory->method('createStream')
+            ->willReturnCallback(static function (string $content) use ($stream, &$capturedBody): MockObject&StreamInterface {
+                $capturedBody = $content;
+                $stream->method('__toString')->willReturn($capturedBody);
+                return $stream;
+            });
+
+        $request->method('withBody')->willReturn($request);
+        $response->method('getBody')->willReturn($bodyStream);
+        $this->httpClient->method('sendRequest')->willReturn($response);
+
+        $successResponse = [
+            'success'      => true,
+            'challenge_ts' => '2024-12-24T00:00:00Z',
+            'hostname'     => 'test.com',
+            'error-codes'  => [],
+        ];
+
+        $bodyStream->method('__toString')->willReturn(json_encode($successResponse));
     }
 }

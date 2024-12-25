@@ -71,6 +71,44 @@ final class ResponseTest extends TestCase
     }
 
     #[Test]
+    public function responseHandlesAllFields(): void
+    {
+        $data = [
+            'success'      => true,
+            'challenge_ts' => '2024-12-24T00:00:00Z',
+            'hostname'     => 'test.com',
+            'error-codes'  => [],
+            'action'       => 'test',
+            'cdata'        => 'custom',
+            'metadata'     => ['key' => 'value'],
+        ];
+
+        $response = new Response($data);
+
+        self::assertSame('test', $response->getAction());
+        self::assertSame('custom', $response->getCdata());
+        self::assertSame(['key' => 'value'], $response->getMetadata());
+        self::assertSame($data, $response->getRawData());
+    }
+
+    #[Test]
+    public function responseHandlesAllNullableFields(): void
+    {
+        $data = [
+            'success'      => true,
+            'challenge_ts' => '2024-12-24T00:00:00Z',
+            'hostname'     => 'test.com',
+            'error-codes'  => [],
+        ];
+
+        $response = new Response($data);
+
+        self::assertNull($response->getAction());
+        self::assertNull($response->getCdata());
+        self::assertSame([], $response->getMetadata());
+    }
+
+    #[Test]
     public function responseHandlesErrorCodesCorrectly(): void
     {
         $data = [

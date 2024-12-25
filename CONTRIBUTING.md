@@ -76,6 +76,14 @@ No configuration is needed for [PHPUnit Coverage Check](https://github.com/erics
 $ composer run-script code-coverage
 ```
 
+#### Infection (mutation testing)
+
+The configuration file can be found at `infection.json5`, in the repository, for [Infection](https://infection.github.io/guide/). You can use Infection to perform mutation testing:
+
+```bash
+$ composer run-script infection
+```
+
 #### PHPStan
 
 The configuration file can be found at `phpstan.neon`, in the repository, for [PHPStan](https://phpstan.org/). You can use PHPStan to perform static analysis:

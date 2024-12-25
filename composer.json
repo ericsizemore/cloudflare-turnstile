@@ -48,6 +48,7 @@
         "friendsofphp/php-cs-fixer": "^3.65",
         "guzzlehttp/guzzle": "^7.9",
         "guzzlehttp/psr7": "^2.7",
+        "infection/infection": "^0",
         "nyholm/psr7": "^1.8",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.0",
@@ -57,8 +58,8 @@
         "phpunit/phpunit": "^11.5",
         "psalm/plugin-phpunit": "^0.19.0",
         "rector/rector": "^2.0",
-        "symfony/http-client": "^7.0",
-        "symfony/psr-http-message-bridge": "^7.0",
+        "symfony/http-client": "^7.2",
+        "symfony/psr-http-message-bridge": "^7.2",
         "vimeo/psalm": "dev-master"
     },
     "suggest": {
@@ -80,13 +81,13 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Esi\\CloudflareTurnstile\\Tests\\EndToEnd\\": "tests/EndToEnd",
             "Esi\\CloudflareTurnstile\\Tests\\Integration\\": "tests/Integration",
             "Esi\\CloudflareTurnstile\\Tests\\Unit\\": "tests/Unit"
         }
     },
     "config": {
         "allow-plugins": {
+            "infection/extension-installer": true,
             "phpstan/extension-installer": true
         }
     },
@@ -107,11 +108,11 @@
         ],
         "clear-build": "rm -rf ./build/*",
         "code-coverage": "vendor/bin/coverage-check build/logs/clover.xml 100",
+        "infection": "vendor/bin/infection --threads=max --configuration=infection.json5 --min-msi=100 --min-covered-msi=100",
         "phpcs:check": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --diff",
         "phpcs:fix": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php",
         "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon -vvv",
         "phpunit": "vendor/bin/phpunit --testsuite=unit,integration",
-        "phpunit:endtoend": "vendor/bin/phpunit --testsuite=end-to-end",
         "phpunit:integration": "vendor/bin/phpunit --testsuite=integration",
         "phpunit:migrate": "@phpunit --migrate-configuration",
         "phpunit:unit": "vendor/bin/phpunit --testsuite=unit",

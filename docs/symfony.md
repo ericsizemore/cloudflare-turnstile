@@ -36,7 +36,7 @@ framework:
                 max_retries: 2
 ```
 
-Add your Turnstile credentials to your .env file:
+Add your Turnstile credentials to your `.env` file:
 
 ```env
 TURNSTILE_SITE_KEY=your_site_key_here
@@ -45,7 +45,7 @@ TURNSTILE_SECRET_KEY=your_secret_key_here
 
 ## Service Configuration
 
-Add to your config/services.yaml:
+Add to your `config/services.yaml`:
 
 ```yaml
 services:
@@ -221,7 +221,7 @@ final class SecurityController extends AbstractController
 
 ## Twig Template
 
-Create templates/security/login.html.twig:
+Create `templates/security/login.html.twig`:
 
 ```twig
 {% extends 'base.html.twig' %}

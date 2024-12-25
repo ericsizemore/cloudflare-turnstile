@@ -20,7 +20,7 @@ TURNSTILE_SITE_KEY=your_site_key_here
 TURNSTILE_SECRET_KEY=your_secret_key_here
 ```
 
-Create a new configuration file config/services.php or add to existing:
+Create a new configuration file `config/services.php` or add to existing:
 ```php
 return [
     // ... other services
@@ -50,6 +50,7 @@ class TurnstileServiceProvider extends ServiceProvider
     {
         $this->app->singleton(Turnstile::class, function ($app) {
             $factory = new HttpFactory();
+            
             return new Turnstile(
                 new Client(),
                 $factory,
