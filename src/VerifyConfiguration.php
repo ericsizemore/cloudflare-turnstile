@@ -21,7 +21,8 @@ use Esi\CloudflareTurnstile\ValueObjects\Token;
 /**
  * Configuration for Turnstile verification requests.
  *
- * This class holds all parameters that can be sent to Cloudflare's verification API.
+ * This class encapsulates all parameters that can be sent to Cloudflare's verification endpoint.
+ * The token parameter is required, while remoteIp, idempotencyKey, and customData are optional.
  *
  * @psalm-immutable
  *
@@ -32,10 +33,10 @@ final readonly class VerifyConfiguration
     /**
      * Creates a new verification configuration.
      *
-     * @param Token                 $token          The response token from the Turnstile widget.
+     * @param Token                 $token          The Turnstile response token from the client.
      * @param null|IpAddress        $remoteIp       Optional. The user's IP address.
-     * @param null|IdempotencyKey   $idempotencyKey Optional. Key to prevent duplicate requests.
-     * @param array<string, string> $customData     Optional. Additional data to include in the request.
+     * @param null|IdempotencyKey   $idempotencyKey Optional. Key to prevent duplicate verifications.
+     * @param array<string, string> $customData     Optional. Additional data to pass to the API.
      */
     public function __construct(
         private Token $token,

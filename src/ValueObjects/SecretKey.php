@@ -21,7 +21,13 @@ use Stringable;
 /**
  * Represents a Cloudflare Turnstile secret key.
  *
+ * This value object represents the secret key obtained from the Cloudflare dashboard.
+ * It is used for server-side validation of Turnstile challenges. The value is marked
+ * as sensitive to prevent accidental exposure in logs or error messages.
+ *
  * @psalm-immutable
+ *
+ * @final
  */
 final readonly class SecretKey implements Stringable
 {

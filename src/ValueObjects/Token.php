@@ -18,13 +18,22 @@ use Esi\CloudflareTurnstile\Exceptions\ValueObjectInvalidValueException;
 use Stringable;
 
 /**
- * Represents a Cloudflare Turnstile response token.
+ * Represents a Turnstile response token from the client-side widget.
+ *
+ * This value object ensures the token is not empty and maintains immutability.
+ * The token is provided by the Turnstile widget in the 'cf-turnstile-response' form field.
  *
  * @psalm-immutable
+ *
+ * @final
  */
 final readonly class Token implements Stringable
 {
     /**
+     * Creates a new Token instance.
+     *
+     * @param string $value The token value from the Turnstile widget.
+     *
      * @throws ValueObjectInvalidValueException If the token is empty.
      */
     public function __construct(private string $value)

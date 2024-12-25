@@ -17,12 +17,28 @@ namespace Esi\CloudflareTurnstile\ValueObjects;
 use Stringable;
 
 /**
- * Represents an idempotency key for ensuring request uniqueness.
+ * Represents an idempotency key for Turnstile verification requests.
+ *
+ * This value object helps prevent duplicate verifications by providing a unique identifier for each request.
+ * When the same idempotency key is used within a time window, Cloudflare will return the same response instead
+ * of performing a new verification.
+ *
+ * Use cases:
+ * - Preventing duplicate form submissions.
+ * - Handling network retries safely.
+ * - Ensuring verification consistency.
  *
  * @psalm-immutable
+ *
+ * @final
  */
 final readonly class IdempotencyKey implements Stringable
 {
+    /**
+     * Creates a new IdempotencyKey instance.
+     *
+     * @param string $value A unique identifier for this verification request.
+     */
     public function __construct(private string $value) {}
 
     /**

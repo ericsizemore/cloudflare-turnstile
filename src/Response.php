@@ -15,9 +15,6 @@ declare(strict_types=1);
 namespace Esi\CloudflareTurnstile;
 
 /**
- * @psalm-immutable
- */
-/**
  * Represents a Cloudflare Turnstile verification response.
  *
  * This immutable class contains all possible fields returned by the Cloudflare verification API.

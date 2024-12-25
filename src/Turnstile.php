@@ -30,15 +30,40 @@ use const JSON_ERROR_NONE;
 /**
  * Cloudflare Turnstile verification client.
  *
- * This class handles server-side validation of Cloudflare Turnstile challenge responses.
- * It uses PSR-18 HTTP Client for making requests to the Cloudflare API.
+ * This class handles server-side validation of Cloudflare Turnstile challenges.
+ * It requires a PSR-18 compatible HTTP client and PSR-17 factories.
+ *
+ * Example usage:
+ * <code>
+ * $client = new Turnstile(
+ *     $httpClient,
+ *     $requestFactory,
+ *     $streamFactory,
+ *     new SecretKey('your-secret-key')
+ * );
+ *
+ * $config = new VerifyConfiguration(
+ *     new Token($_POST['cf-turnstile-response']),
+ *     new IpAddress($_SERVER['REMOTE_ADDR'])
+ * );
+ *
+ * try {
+ *     $response = $client->verify($config);
+ *
+ *     if ($response->isSuccess()) {
+ *         // Verification successful
+ *     }
+ * } catch (ClientExceptionInterface $e) {
+ *     // Handle HTTP client errors
+ * }
+ * </code>
  *
  * @see https://developers.cloudflare.com/turnstile/get-started/server-side-validation/
  * @see https://github.com/ericsizemore/cloudflare-turnstile/blob/main/docs/faq.md#related-documentation
  *
- * @final
- *
  * @phpstan-import-type RawDataArray from Response
+ *
+ * @final
  */
 final readonly class Turnstile
 {
