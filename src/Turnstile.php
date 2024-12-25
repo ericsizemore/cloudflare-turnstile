@@ -30,14 +30,33 @@ use const JSON_ERROR_NONE;
 /**
  * Cloudflare Turnstile verification client.
  *
+ * This class handles server-side validation of Cloudflare Turnstile challenge responses.
+ * It uses PSR-18 HTTP Client for making requests to the Cloudflare API.
+ *
  * @see https://developers.cloudflare.com/turnstile/get-started/server-side-validation/
+ * @see https://github.com/ericsizemore/cloudflare-turnstile/blob/main/docs/faq.md#related-documentation
+ *
+ * @final
  *
  * @phpstan-import-type RawDataArray from Response
  */
 final readonly class Turnstile
 {
+    /**
+     * The Cloudflare Turnstile verification endpoint.
+     *
+     * @var string
+     */
     private const VerifyUrl = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
+    /**
+     * Creates a new Turnstile verification client.
+     *
+     * @param ClientInterface         $httpClient     PSR-18 compatible HTTP client.
+     * @param RequestFactoryInterface $requestFactory PSR-17 compatible request factory.
+     * @param StreamFactoryInterface  $streamFactory  PSR-17 compatible stream factory.
+     * @param SecretKey               $secretKey      Your Cloudflare Turnstile secret key.
+     */
     public function __construct(
         private ClientInterface $httpClient,
         private RequestFactoryInterface $requestFactory,
@@ -46,10 +65,18 @@ final readonly class Turnstile
     ) {}
 
     /**
-     * Verify a Turnstile response token.
+     * Verifies a Turnstile response token.
      *
-     * @throws RuntimeException         If the request fails or returns invalid JSON
-     * @throws ClientExceptionInterface If the HTTP client encounters an error
+     * Sends a verification request to Cloudflare's API to validate the challenge response.
+     *
+     * @param VerifyConfiguration $config Configuration containing the token and optional parameters.
+     *
+     * @throws RuntimeException         If the response cannot be decoded.
+     * @throws ClientExceptionInterface If the HTTP client encounters an error.
+     *
+     * @return Response The verification response from Cloudflare.
+     *
+     * @see https://developers.cloudflare.com/turnstile/get-started/server-side-validation/#verification-api
      */
     public function verify(VerifyConfiguration $config): Response
     {

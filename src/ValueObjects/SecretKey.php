@@ -19,12 +19,14 @@ use SensitiveParameter;
 use Stringable;
 
 /**
+ * Represents a Cloudflare Turnstile secret key.
+ *
  * @psalm-immutable
  */
 final readonly class SecretKey implements Stringable
 {
     /**
-     * @throws ValueObjectInvalidValueException
+     * @throws ValueObjectInvalidValueException If the secret key is empty or invalid.
      */
     public function __construct(#[SensitiveParameter] private string $value)
     {
@@ -33,6 +35,11 @@ final readonly class SecretKey implements Stringable
         }
     }
 
+    /**
+     * Get the secret key value.
+     *
+     * @inheritDoc
+     */
     public function __toString(): string
     {
         return $this->value;

@@ -20,12 +20,14 @@ use Stringable;
 use function filter_var;
 
 /**
+ * Represents an IP address.
+ *
  * @psalm-immutable
  */
 final readonly class IpAddress implements Stringable
 {
     /**
-     * @throws ValueObjectInvalidValueException
+     * @throws ValueObjectInvalidValueException If the IP address is invalid.
      */
     public function __construct(private string $value)
     {
@@ -34,6 +36,11 @@ final readonly class IpAddress implements Stringable
         }
     }
 
+    /**
+     * Get the raw IP address value.
+     *
+     * @inheritDoc
+     */
     public function __toString(): string
     {
         return $this->value;

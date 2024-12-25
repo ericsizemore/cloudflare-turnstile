@@ -18,12 +18,14 @@ use Esi\CloudflareTurnstile\Exceptions\ValueObjectInvalidValueException;
 use Stringable;
 
 /**
+ * Represents a Cloudflare Turnstile response token.
+ *
  * @psalm-immutable
  */
 final readonly class Token implements Stringable
 {
     /**
-     * @throws ValueObjectInvalidValueException
+     * @throws ValueObjectInvalidValueException If the token is empty.
      */
     public function __construct(private string $value)
     {
@@ -32,6 +34,11 @@ final readonly class Token implements Stringable
         }
     }
 
+    /**
+     * Get the raw token value.
+     *
+     * @inheritDoc
+     */
     public function __toString(): string
     {
         return $this->value;

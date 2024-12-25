@@ -16,19 +16,31 @@ namespace Esi\CloudflareTurnstile\Exceptions;
 
 use InvalidArgumentException;
 
+/**
+ * Exception thrown when a value object receives an invalid value.
+ */
 final class ValueObjectInvalidValueException extends InvalidArgumentException
 {
-    public static function invalidIpAddress(): ValueObjectInvalidValueException
+    /**
+     * Create exception for invalid IP address.
+     */
+    public static function invalidIpAddress(): self
     {
         return new self('Invalid IP address.');
     }
 
-    public static function invalidSecretKey(): ValueObjectInvalidValueException
+    /**
+     * Create exception for invalid secret key.
+     */
+    public static function invalidSecretKey(): self
     {
         return new self('Invalid secret key: cannot be empty.');
     }
 
-    public static function invalidToken(): ValueObjectInvalidValueException
+    /**
+     * Create exception for invalid token.
+     */
+    public static function invalidToken(): self
     {
         return new self('Invalid token: cannot be empty.');
     }

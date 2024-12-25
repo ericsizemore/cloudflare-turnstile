@@ -17,12 +17,19 @@ namespace Esi\CloudflareTurnstile\ValueObjects;
 use Stringable;
 
 /**
+ * Represents an idempotency key for ensuring request uniqueness.
+ *
  * @psalm-immutable
  */
 final readonly class IdempotencyKey implements Stringable
 {
     public function __construct(private string $value) {}
 
+    /**
+     * Get the raw idempotency key value.
+     *
+     * @inheritDoc
+     */
     public function __toString(): string
     {
         return $this->value;
