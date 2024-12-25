@@ -136,9 +136,11 @@ composer require esi/cloudflare-turnstile laminas/laminas-diactoros:^3.0 php-htt
 #### Basic Usage
 ```php
 use Esi\CloudflareTurnstile\Turnstile;
+use Esi\CloudflareTurnstile\Exceptions\ValueObjectInvalidValueException;
 use Esi\CloudflareTurnstile\ValueObjects\SecretKey;
 use Esi\CloudflareTurnstile\ValueObjects\Token;
 use Esi\CloudflareTurnstile\VerifyConfiguration;
+use Psr\Http\Client\ClientExceptionInterface;
 
 /**
  * // Using Guzzle
@@ -171,20 +173,20 @@ $httpClient = new \Your\Preferred\HttpClient();
 $requestFactory = new \Your\Preferred\RequestFactory();
 $streamFactory = new \Your\Preferred\StreamFactory();
 
-// Create the Turnstile client
-$turnstile = new Turnstile(
-    $httpClient,
-    $requestFactory,
-    $streamFactory,
-    new SecretKey('your-secret-key')
-);
-
-// Create configuration with the response token from the frontend
-$config = new VerifyConfiguration(
-    new Token('response-token-from-widget')
-);
-
 try {
+    // Create the Turnstile client
+    $turnstile = new Turnstile(
+        $httpClient,
+        $requestFactory,
+        $streamFactory,
+        new SecretKey('your-secret-key')
+    );
+
+    // Create configuration with the response token from the frontend
+    $config = new VerifyConfiguration(
+        new Token('response-token-from-widget')
+    );
+
     $response = $turnstile->verify($config);
     
     if ($response->isSuccess()) {
@@ -194,10 +196,13 @@ try {
         // Verification failed
         echo 'Challenge failed: ' . implode(', ', $response->getErrorCodes());
     }
+} catch (ValueObjectInvalidValueException $e) {
+    // Handle an invalid value being passed to Token, IpAddress, or SecretKey
+    echo 'Config Error: ' . $e->getMessage();
 } catch (\RuntimeException $e) {
     // Handle JSON decode errors
     echo 'Error: ' . $e->getMessage();
-} catch (\Psr\Http\Client\ClientExceptionInterface $e) {
+} catch (ClientExceptionInterface $e) {
     // Handle HTTP client errors
     echo 'HTTP Error: ' . $e->getMessage();
 }
@@ -209,6 +214,7 @@ try {
 
 ```php
 use Esi\CloudflareTurnstile\Turnstile;
+use Esi\CloudflareTurnstile\Exceptions\ValueObjectInvalidValueException;
 use Esi\CloudflareTurnstile\ValueObjects\IdempotencyKey;
 use Esi\CloudflareTurnstile\ValueObjects\IpAddress;
 use Esi\CloudflareTurnstile\ValueObjects\SecretKey;
@@ -220,26 +226,45 @@ $httpClient = new \Your\Preferred\HttpClient();
 $requestFactory = new \Your\Preferred\RequestFactory();
 $streamFactory = new \Your\Preferred\StreamFactory();
 
-// Create the Turnstile client
-$turnstile = new Turnstile(
-    $httpClient,
-    $requestFactory,
-    $streamFactory,
-    new SecretKey('your-secret-key')
-);
+try {
+    // Create the Turnstile client
+    $turnstile = new Turnstile(
+        $httpClient,
+        $requestFactory,
+        $streamFactory,
+        new SecretKey('your-secret-key')
+    );
 
-// Create configuration with all available options
-$config = new VerifyConfiguration(
-    new Token('response-token-from-widget'),
-    new IpAddress('127.0.0.1'),              // Optional: Client IP address
-    new IdempotencyKey('unique-request-id'), // Optional: Idempotency key
-    [                                        // Optional: Custom data
-        'action' => 'login',
-        'cdata' => 'custom-verification-data'
-    ]
-);
+    // Create configuration with all available options
+    $config = new VerifyConfiguration(
+        new Token('response-token-from-widget'),
+        new IpAddress('127.0.0.1'),              // Optional: Client IP address
+        new IdempotencyKey('unique-request-id'), // Optional: Idempotency key
+        [                                        // Optional: Custom data
+            'action' => 'login',
+            'cdata' => 'custom-verification-data'
+        ]
+    );
 
-$response = $turnstile->verify($config);
+    $response = $turnstile->verify($config);
+
+    if ($response->isSuccess()) {
+        // Verification successful
+        echo 'Challenge passed!';
+    } else {
+        // Verification failed
+        echo 'Challenge failed: ' . implode(', ', $response->getErrorCodes());
+    }
+} catch (ValueObjectInvalidValueException $e) {
+    // Handle an invalid value being passed to Token, IpAddress, or SecretKey
+    echo 'Config Error: ' . $e->getMessage();
+} catch (\RuntimeException $e) {
+    // Handle JSON decode errors
+    echo 'Error: ' . $e->getMessage();
+} catch (ClientExceptionInterface $e) {
+    // Handle HTTP client errors
+    echo 'HTTP Error: ' . $e->getMessage();
+}
 ```
 
 ##### Reading the response.

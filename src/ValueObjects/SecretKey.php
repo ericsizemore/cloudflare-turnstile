@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Esi\CloudflareTurnstile\ValueObjects;
 
-use InvalidArgumentException;
+use Esi\CloudflareTurnstile\Exceptions\ValueObjectInvalidValueException;
 use SensitiveParameter;
 use Stringable;
 
@@ -24,12 +24,12 @@ use Stringable;
 final readonly class SecretKey implements Stringable
 {
     /**
-     * @throws InvalidArgumentException
+     * @throws ValueObjectInvalidValueException
      */
     public function __construct(#[SensitiveParameter] private string $value)
     {
         if ($value === '') {
-            throw new InvalidArgumentException('Secret key cannot be empty');
+            throw ValueObjectInvalidValueException::invalidSecretKey();
         }
     }
 

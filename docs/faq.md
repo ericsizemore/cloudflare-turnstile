@@ -3,14 +3,17 @@
 ## General Questions
 
 **Q: What is Cloudflare Turnstile?**
+
 **A:** Cloudflare Turnstile is a CAPTCHA alternative that provides a user-friendly way to verify that your visitors are human without requiring them to solve puzzles.
 
 **Q: How does it compare to reCAPTCHA?**
+
 **A:** Turnstile is designed to be more privacy-friendly and user-friendly than traditional CAPTCHAs, using multiple non-interactive signals to verify users.
 
 ## Implementation Questions
 
 **Q: Can I use multiple widgets on the same page?**
+
 **A:** Yes, you can have multiple widgets on the same page. Each widget will need its own container:
 
 ```html
@@ -31,9 +34,11 @@ turnstile.reset('#widget-container');
 ## Security Questions
 
 **Q: Is it safe to store the secret key in environment variables?**
+
 **A:** Yes, storing sensitive credentials in environment variables is a security best practice. Never commit these values to version control.
 
 **Q: Should I validate responses server-side?**
+
 **A:** Yes, always validate responses server-side. Client-side validation alone is not secure.
 
 ## Related Documentation

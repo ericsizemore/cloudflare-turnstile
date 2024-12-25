@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Esi\CloudflareTurnstile\ValueObjects;
 
-use InvalidArgumentException;
+use Esi\CloudflareTurnstile\Exceptions\ValueObjectInvalidValueException;
 use Stringable;
 
 use function filter_var;
@@ -25,12 +25,12 @@ use function filter_var;
 final readonly class IpAddress implements Stringable
 {
     /**
-     * @throws InvalidArgumentException
+     * @throws ValueObjectInvalidValueException
      */
     public function __construct(private string $value)
     {
         if (filter_var($value, FILTER_VALIDATE_IP) === false) {
-            throw new InvalidArgumentException('Invalid IP address');
+            throw ValueObjectInvalidValueException::invalidIpAddress();
         }
     }
 

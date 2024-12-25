@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Esi\CloudflareTurnstile\Tests\Unit\ValueObjects;
 
+use Esi\CloudflareTurnstile\Exceptions\ValueObjectInvalidValueException;
 use Esi\CloudflareTurnstile\ValueObjects\SecretKey;
-use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -26,13 +26,14 @@ use PHPUnit\Framework\TestCase;
  * @psalm-api
  */
 #[CoversClass(SecretKey::class)]
+#[CoversClass(ValueObjectInvalidValueException::class)]
 final class SecretKeyTest extends TestCase
 {
     #[Test]
     public function emptySecretKeyThrowsException(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Secret key cannot be empty');
+        $this->expectException(ValueObjectInvalidValueException::class);
+        $this->expectExceptionMessage('Invalid secret key: cannot be empty.');
         new SecretKey('');
     }
 

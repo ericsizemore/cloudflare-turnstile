@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Esi\CloudflareTurnstile\Tests\Unit\ValueObjects;
 
+use Esi\CloudflareTurnstile\Exceptions\ValueObjectInvalidValueException;
 use Esi\CloudflareTurnstile\ValueObjects\Token;
-use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -26,13 +26,14 @@ use PHPUnit\Framework\TestCase;
  * @psalm-api
  */
 #[CoversClass(Token::class)]
+#[CoversClass(ValueObjectInvalidValueException::class)]
 final class TokenTest extends TestCase
 {
     #[Test]
     public function emptyTokenThrowsException(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Token cannot be empty');
+        $this->expectException(ValueObjectInvalidValueException::class);
+        $this->expectExceptionMessage('Invalid token: cannot be empty.');
         new Token('');
     }
 

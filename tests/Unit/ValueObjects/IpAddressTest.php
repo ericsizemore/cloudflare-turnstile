@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace Esi\CloudflareTurnstile\Tests\Unit\ValueObjects;
 
+use Esi\CloudflareTurnstile\Exceptions\ValueObjectInvalidValueException;
 use Esi\CloudflareTurnstile\ValueObjects\IpAddress;
 use Generator;
-use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -28,13 +28,15 @@ use PHPUnit\Framework\TestCase;
  * @psalm-api
  */
 #[CoversClass(IpAddress::class)]
+#[CoversClass(ValueObjectInvalidValueException::class)]
 final class IpAddressTest extends TestCase
 {
     #[Test]
     #[DataProvider('invalidIpAddresses')]
     public function invalidIpAddressCreation(string $ip): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ValueObjectInvalidValueException::class);
+        $this->expectExceptionMessage('Invalid IP address.');
         new IpAddress($ip);
     }
 

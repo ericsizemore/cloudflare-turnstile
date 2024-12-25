@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Esi\CloudflareTurnstile\ValueObjects;
 
-use InvalidArgumentException;
+use Esi\CloudflareTurnstile\Exceptions\ValueObjectInvalidValueException;
 use Stringable;
 
 /**
@@ -23,12 +23,12 @@ use Stringable;
 final readonly class Token implements Stringable
 {
     /**
-     * @throws InvalidArgumentException
+     * @throws ValueObjectInvalidValueException
      */
     public function __construct(private string $value)
     {
         if ($value === '') {
-            throw new InvalidArgumentException('Token cannot be empty');
+            throw ValueObjectInvalidValueException::invalidToken();
         }
     }
 
