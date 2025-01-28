@@ -44,7 +44,7 @@
     },
     "require-dev": {
         "ext-curl": "*",
-        "esi/phpunit-coverage-check": "^2.0",
+        "esi/phpunit-coverage-check": "^3.0",
         "friendsofphp/php-cs-fixer": "^3.65",
         "guzzlehttp/guzzle": "^7.9",
         "guzzlehttp/psr7": "^2.7",
