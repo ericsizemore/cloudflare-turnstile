@@ -17,7 +17,7 @@
 `ericsizemore/cloudflare-turnstile` - A PHP library for server-side validation of Cloudflare Turnstile challenges. This library is PSR-18 compatible and framework-agnostic.
 
 > [!IMPORTANT]
-> WIP: This library is not yet finished. Not recommended for production yet.
+> WIP: This library is not yet finished. Not recommended for production.
 
 >[!NOTE]
 > This library requires additional libraries to work successfully. Please see [below](#psr-implementation-libraries).
@@ -26,7 +26,7 @@
 
 ### Requirements
 
-* PHP >= 8.2
+* PHP >= 8.3
 * Composer
 * One of each:
     * PSR-7 HTTP Message implementation
@@ -72,28 +72,28 @@ Below are some recommended libraries that implement the required PSR interfaces.
 
 HTTP message and URI interface implementations:
 
-* [Guzzle PSR-7](https://github.com/guzzle/psr7) - One of the most popular PSR-7 implementations.
-* [Laminas Diactoros](https://github.com/laminas/laminas-diactoros) - Former Zend Framework PSR-7 implementation.
-* [Nyholm PSR-7](https://github.com/Nyholm/psr7) - Lightweight PSR-7 implementation.
-* [Slim PSR-7](https://github.com/slimphp/Slim-Psr7) - Slim Framework's PSR-7 implementation.
+* [Guzzle PSR-7](https://github.com/guzzle/psr7) — One of the most popular PSR-7 implementations.
+* [Laminas Diactoros](https://github.com/laminas/laminas-diactoros) — Former Zend Framework PSR-7 implementation.
+* [Nyholm PSR-7](https://github.com/Nyholm/psr7) — Lightweight PSR-7 implementation.
+* [Slim PSR-7](https://github.com/slimphp/Slim-Psr7) — Slim Framework's PSR-7 implementation.
 
 ##### PSR-17: HTTP Factories
 
 Factory interfaces for PSR-7:
 
-* [Guzzle PSR-7](https://github.com/guzzle/psr7) - Includes PSR-17 factories.
-* [Laminas Diactoros](https://github.com/laminas/laminas-diactoros) - Includes PSR-17 factories.
-* [Nyholm PSR-7](https://github.com/Nyholm/psr7) - Includes PSR-17 factories.
+* [Guzzle PSR-7](https://github.com/guzzle/psr7) — Includes PSR-17 factories.
+* [Laminas Diactoros](https://github.com/laminas/laminas-diactoros) — Includes PSR-17 factories.
+* [Nyholm PSR-7](https://github.com/Nyholm/psr7) — Includes PSR-17 factories.
 
 ##### PSR-18: HTTP Client
 
 HTTP Client implementations:
 
-* [Symfony HTTP Client](https://github.com/symfony/http-client) - Modern HTTP client with great features.
-* [Guzzle](https://github.com/guzzle/guzzle) - Popular HTTP client.
-* [PHP-HTTP Curl Client](https://github.com/php-http/curl-client) - cURL-based PSR-18 client.
-* [Buzz](https://github.com/kriswallsmith/Buzz) - Lightweight PSR-18 client.
-* [PHP-HTTP Socket Client](https://github.com/php-http/socket-client) - Socket-based PSR-18 client.
+* [Symfony HTTP Client](https://github.com/symfony/http-client) — Modern HTTP client with great features.
+* [Guzzle](https://github.com/guzzle/guzzle) — Popular HTTP client.
+* [PHP-HTTP Curl Client](https://github.com/php-http/curl-client) — cURL-based PSR-18 client.
+* [Buzz](https://github.com/kriswallsmith/Buzz) — Lightweight PSR-18 client.
+* [PHP-HTTP Socket Client](https://github.com/php-http/socket-client) — Socket-based PSR-18 client.
 
 ##### Notes
 - Guzzle provides all required PSR implementations in one package.
@@ -197,7 +197,7 @@ try {
         echo 'Challenge failed: ' . implode(', ', $response->getErrorCodes());
     }
 } catch (ValueObjectInvalidValueException $e) {
-    // Handle an invalid value being passed to Token, IpAddress, or SecretKey
+    // Handle an invalid value passed to Token, IpAddress, or SecretKey
     echo 'Config Error: ' . $e->getMessage();
 } catch (\RuntimeException $e) {
     // Handle JSON decode errors
@@ -256,7 +256,7 @@ try {
         echo 'Challenge failed: ' . implode(', ', $response->getErrorCodes());
     }
 } catch (ValueObjectInvalidValueException $e) {
-    // Handle an invalid value being passed to Token, IpAddress, or SecretKey
+    // Handle an invalid value passed to Token, IpAddress, or SecretKey
     echo 'Config Error: ' . $e->getMessage();
 } catch (\RuntimeException $e) {
     // Handle JSON decode errors

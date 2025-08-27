@@ -49,6 +49,7 @@ final class SymfonyClientIntegrationTest extends TestCase
 
     private Turnstile $turnstile;
 
+    #[\Override]
     protected function setUp(): void
     {
         $this->mockHttpClient = new MockHttpClient();

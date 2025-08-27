@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Esi\CloudflareTurnstile\ValueObjects;
 
 use Esi\CloudflareTurnstile\Exceptions\ValueObjectInvalidValueException;
+use Override;
 use SensitiveParameter;
 use Stringable;
 
@@ -46,6 +47,7 @@ final readonly class SecretKey implements Stringable
      *
      * @inheritDoc
      */
+    #[Override]
     public function __toString(): string
     {
         return $this->value;

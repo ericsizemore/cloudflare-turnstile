@@ -16,7 +16,6 @@ namespace Esi\CloudflareTurnstile\Tests\Unit\ValueObjects;
 
 use Esi\CloudflareTurnstile\Exceptions\ValueObjectInvalidValueException;
 use Esi\CloudflareTurnstile\ValueObjects\IpAddress;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -49,9 +48,9 @@ final class IpAddressTest extends TestCase
     }
 
     /**
-     * @return Generator<int, list<string>>
+     * @return iterable<array-key, array<array-key, string>>
      */
-    public static function invalidIpAddresses(): Generator
+    public static function invalidIpAddresses(): iterable
     {
         yield ['256.256.256.256'];
         yield ['not.an.ip.address'];
@@ -60,9 +59,9 @@ final class IpAddressTest extends TestCase
     }
 
     /**
-     * @return Generator<int, list<string>>
+     * @return iterable<array-key, array<array-key, string>>
      */
-    public static function validIpAddresses(): Generator
+    public static function validIpAddresses(): iterable
     {
         yield ['127.0.0.1'];
         yield ['192.168.1.1'];

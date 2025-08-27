@@ -25,6 +25,8 @@ use function http_build_query;
 use function json_decode;
 use function json_last_error;
 
+use function json_last_error_msg;
+
 use const JSON_ERROR_NONE;
 
 /**
@@ -69,10 +71,8 @@ final readonly class Turnstile
 {
     /**
      * The Cloudflare Turnstile verification endpoint.
-     *
-     * @var string
      */
-    private const VerifyUrl = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+    private const string VerifyUrl = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
     /**
      * Creates a new Turnstile verification client.
@@ -134,7 +134,7 @@ final readonly class Turnstile
         $result = json_decode((string) $response->getBody(), true);
 
         if (!\is_array($result) || json_last_error() !== JSON_ERROR_NONE) {
-            throw new RuntimeException('Failed to decode Turnstile response');
+            throw new RuntimeException(\sprintf('Failed to decode Turnstile response, JSON returned: %s', json_last_error_msg()));
         }
 
         /**

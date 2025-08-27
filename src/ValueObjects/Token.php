@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Esi\CloudflareTurnstile\ValueObjects;
 
 use Esi\CloudflareTurnstile\Exceptions\ValueObjectInvalidValueException;
+use Override;
 use Stringable;
 
 /**
@@ -48,6 +49,7 @@ final readonly class Token implements Stringable
      *
      * @inheritDoc
      */
+    #[Override]
     public function __toString(): string
     {
         return $this->value;

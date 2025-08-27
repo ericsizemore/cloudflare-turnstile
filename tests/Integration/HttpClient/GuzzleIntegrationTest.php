@@ -49,6 +49,7 @@ final class GuzzleIntegrationTest extends TestCase
 
     private Turnstile $turnstile;
 
+    #[\Override]
     protected function setUp(): void
     {
         $this->mockHandler = new MockHandler();

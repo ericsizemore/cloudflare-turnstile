@@ -18,7 +18,7 @@ return RectorConfig::configure()
         __DIR__ . '/build/rector'
     )
     ->withRules([
-        AssertEqualsToSameRector::class,
+        //AssertEqualsToSameRector::class,
         PreferPHPUnitSelfCallRector::class,
     ])
     ->withSkip([
@@ -26,7 +26,7 @@ return RectorConfig::configure()
         PreferPHPUnitThisCallRector::class,
     ])
     ->withPhpSets(
-        php82: true
+        php83: true
     )
     ->withPreparedSets(
         deadCode: true,

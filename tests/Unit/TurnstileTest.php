@@ -60,6 +60,7 @@ final class TurnstileTest extends TestCase
     /**
      * @throws Exception
      */
+    #[\Override]
     protected function setUp(): void
     {
         $this->httpClient     = $this->createMock(ClientInterface::class);
