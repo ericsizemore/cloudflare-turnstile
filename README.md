@@ -322,7 +322,6 @@ See [docs/troubleshooting.md](docs/troubleshooting.md).
 
 - [Eric Sizemore](https://github.com/ericsizemore)
 - [All Contributors](https://github.com/ericsizemore/cloudflare-turnstile/contributors)
-- Special thanks to [JetBrains](https://www.jetbrains.com/?from=esi-cloudflare-turnstile) for their Licenses for Open Source Development.
 
 ### Contributing
 
