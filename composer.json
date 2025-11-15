@@ -60,7 +60,7 @@
         "rector/rector": "^2.1",
         "symfony/http-client": "^7.3",
         "symfony/psr-http-message-bridge": "^7.3",
-        "vimeo/psalm": "^6.13"
+        "vimeo/psalm": "6.x-dev"
     },
     "suggest": {
         "guzzlehttp/guzzle": "A popular PSR-18 HTTP client, PSR-7 message implementation, and PSR-17 factory (~7.8)",
