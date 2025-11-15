@@ -17,6 +17,7 @@ return RectorConfig::configure()
     ->withCache(
         __DIR__ . '/build/rector'
     )
+    ->withComposerBased(phpunit: true)
     ->withRules([
         //AssertEqualsToSameRector::class,
         PreferPHPUnitSelfCallRector::class,
@@ -35,7 +36,6 @@ return RectorConfig::configure()
         typeDeclarations: true,
         privatization: true,
         earlyReturn: true,
-        strictBooleans: true,
         rectorPreset: true,
         phpunitCodeQuality: true,
     )

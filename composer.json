@@ -37,7 +37,7 @@
         }
     ],
     "require": {
-        "php": "~8.3.0 || ~8.4.1",
+        "php": "~8.3.0 || ~8.4.1 || ~8.5.0",
         "psr/http-client": "^1.0.3",
         "psr/http-factory": "^1.1",
         "psr/http-message": "^2.0"
@@ -45,7 +45,7 @@
     "require-dev": {
         "ext-curl": "*",
         "esi/phpunit-coverage-check": "^3.0",
-        "friendsofphp/php-cs-fixer": "^3.86",
+        "friendsofphp/php-cs-fixer": "^3.89",
         "guzzlehttp/guzzle": "^7.10",
         "guzzlehttp/psr7": "^2.8",
         "infection/infection": "^0.31",
@@ -55,7 +55,7 @@
         "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-strict-rules": "^2.0",
-        "phpunit/phpunit": "^12.3",
+        "phpunit/phpunit": "^12.4",
         "psalm/plugin-phpunit": "^0.19",
         "rector/rector": "^2.1",
         "symfony/http-client": "^7.3",
