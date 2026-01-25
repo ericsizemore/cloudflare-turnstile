@@ -7037,16 +7037,16 @@
         },
         {
             "name": "symfony/http-client",
-            "version": "v7.4.3",
+            "version": "v7.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "d01dfac1e0dc99f18da48b18101c23ce57929616"
+                "reference": "d63c23357d74715a589454c141c843f0172bec6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-client/zipball/d01dfac1e0dc99f18da48b18101c23ce57929616",
-                "reference": "d01dfac1e0dc99f18da48b18101c23ce57929616",
+                "url": "https://api.github.com/repos/symfony/http-client/zipball/d63c23357d74715a589454c141c843f0172bec6c",
+                "reference": "d63c23357d74715a589454c141c843f0172bec6c",
                 "shasum": ""
             },
             "require": {
@@ -7114,7 +7114,7 @@
                 "http"
             ],
             "support": {
-                "source": "https://github.com/symfony/http-client/tree/v7.4.3"
+                "source": "https://github.com/symfony/http-client/tree/v7.4.4"
             },
             "funding": [
                 {
@@ -7134,7 +7134,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-23T14:50:43+00:00"
+            "time": "2026-01-23T16:34:22+00:00"
         },
         {
             "name": "symfony/http-client-contracts",
@@ -8174,16 +8174,16 @@
         },
         {
             "name": "symfony/psr-http-message-bridge",
-            "version": "v7.4.0",
+            "version": "v7.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/psr-http-message-bridge.git",
-                "reference": "0101ff8bd0506703b045b1670960302d302a726c"
+                "reference": "929ffe10bbfbb92e711ac3818d416f9daffee067"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/psr-http-message-bridge/zipball/0101ff8bd0506703b045b1670960302d302a726c",
-                "reference": "0101ff8bd0506703b045b1670960302d302a726c",
+                "url": "https://api.github.com/repos/symfony/psr-http-message-bridge/zipball/929ffe10bbfbb92e711ac3818d416f9daffee067",
+                "reference": "929ffe10bbfbb92e711ac3818d416f9daffee067",
                 "shasum": ""
             },
             "require": {
@@ -8238,7 +8238,7 @@
                 "psr-7"
             ],
             "support": {
-                "source": "https://github.com/symfony/psr-http-message-bridge/tree/v7.4.0"
+                "source": "https://github.com/symfony/psr-http-message-bridge/tree/v7.4.4"
             },
             "funding": [
                 {
@@ -8258,7 +8258,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-11-13T08:38:49+00:00"
+            "time": "2026-01-03T23:30:35+00:00"
         },
         {
             "name": "symfony/service-contracts",
