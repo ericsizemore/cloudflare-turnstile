@@ -44,8 +44,8 @@
     },
     "require-dev": {
         "ext-curl": "*",
-        "esi/phpunit-coverage-check": "^3.0",
-        "friendsofphp/php-cs-fixer": "^3.89",
+        "esi/phpunit-coverage-check": "^3.1",
+        "friendsofphp/php-cs-fixer": "^3.93",
         "guzzlehttp/guzzle": "^7.10",
         "guzzlehttp/psr7": "^2.8",
         "infection/infection": "^0.32",
@@ -55,12 +55,12 @@
         "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-strict-rules": "^2.0",
-        "phpunit/phpunit": "^12.4",
+        "phpunit/phpunit": "^12.5",
         "psalm/plugin-phpunit": "^0.19",
-        "rector/rector": "^2.1",
-        "symfony/http-client": "^7.3",
-        "symfony/psr-http-message-bridge": "^7.3",
-        "vimeo/psalm": "6.x-dev"
+        "rector/rector": "^2.3",
+        "symfony/http-client": "^7.4",
+        "symfony/psr-http-message-bridge": "^7.4",
+        "vimeo/psalm": "^6.15"
     },
     "suggest": {
         "guzzlehttp/guzzle": "A popular PSR-18 HTTP client, PSR-7 message implementation, and PSR-17 factory (~7.8)",

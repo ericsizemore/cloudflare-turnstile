@@ -21,6 +21,7 @@ use Esi\CloudflareTurnstile\ValueObjects\IpAddress;
 use Esi\CloudflareTurnstile\ValueObjects\SecretKey;
 use Esi\CloudflareTurnstile\ValueObjects\Token;
 use Esi\CloudflareTurnstile\VerifyConfiguration;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\Exception;
@@ -47,6 +48,7 @@ use RuntimeException;
 #[CoversClass(SecretKey::class)]
 #[CoversClass(Token::class)]
 #[CoversClass(VerifyConfiguration::class)]
+#[AllowMockObjectsWithoutExpectations]
 final class TurnstileTest extends TestCase
 {
     private ClientInterface&MockObject $httpClient;

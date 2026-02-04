@@ -38,8 +38,9 @@ jobs:
       - name: "Setup Composer, install dependencies"
         uses: ramsey/composer-install@v3
         with:
-           composer-options: "--prefer-dist --optimize-autoloader"
-           require-lock-file: "true"
+          composer-options: "--prefer-dist --optimize-autoloader"
+          require-lock-file: "false"
+          dependency-versions: "highest"
 
       - name: "Run PHPStan"
         run: composer run-script phpstan
@@ -64,7 +65,8 @@ jobs:
         uses: ramsey/composer-install@v3
         with:
           composer-options: "--prefer-dist --optimize-autoloader"
-          require-lock-file: "true"
+          require-lock-file: "false"
+          dependency-versions: "highest"
 
       - name: "Psalm Analysis"
         run: composer run-script psalm:ci
@@ -97,7 +99,8 @@ jobs:
         uses: ramsey/composer-install@v3
         with:
           composer-options: "--prefer-dist --optimize-autoloader"
-          require-lock-file: "true"
+          require-lock-file: "false"
+          dependency-versions: "highest"
 
       - name: "Run Infection"
         if: github.event_name != 'pull_request'
@@ -137,8 +140,9 @@ jobs:
       - name: "Setup Composer, install dependencies"
         uses: ramsey/composer-install@v3
         with:
-           composer-options: "--prefer-dist --optimize-autoloader"
-           require-lock-file: "true"
+          composer-options: "--prefer-dist --optimize-autoloader"
+          require-lock-file: "false"
+          dependency-versions: "highest"
 
       - name: "Run test suite"
         run: composer run-script phpunit
