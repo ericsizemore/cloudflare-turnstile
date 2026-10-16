@@ -58,8 +58,8 @@
         "phpunit/phpunit": "^12.5",
         "psalm/plugin-phpunit": "^0.19",
         "rector/rector": "^2.3",
-        "symfony/http-client": "^7.4",
-        "symfony/psr-http-message-bridge": "^7.4",
+        "symfony/http-client": "^8.0",
+        "symfony/psr-http-message-bridge": "^8.0",
         "vimeo/psalm": "^6.15"
     },
     "suggest": {
