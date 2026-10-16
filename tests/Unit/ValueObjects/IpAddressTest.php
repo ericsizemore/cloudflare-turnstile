@@ -35,7 +35,7 @@ final class IpAddressTest extends TestCase
     public function invalidIpAddressCreation(string $ip): void
     {
         $this->expectException(ValueObjectInvalidValueException::class);
-        $this->expectExceptionMessage('Invalid IP address.');
+        $this->withExceptionMessage('Invalid IP address.');
         new IpAddress($ip);
     }
 
@@ -67,5 +67,14 @@ final class IpAddressTest extends TestCase
         yield ['192.168.1.1'];
         yield ['::1'];
         yield ['2001:0db8:85a3:0000:0000:8a2e:0370:7334'];
+    }
+
+    private function withExceptionMessage(string $message): void
+    {
+        if (method_exists($this, 'expectExceptionMessageIsOrContains')) { // PHPUnit 13+
+            $this->expectExceptionMessageIsOrContains($message);
+        } else {
+            $this->expectExceptionMessage($message);
+        }
     }
 }

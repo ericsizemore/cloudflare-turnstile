@@ -23,6 +23,8 @@ final class ValueObjectInvalidValueException extends InvalidArgumentException
 {
     /**
      * Create exception for invalid IP address.
+     *
+     * @psalm-pure
      */
     public static function invalidIpAddress(): self
     {
@@ -31,6 +33,8 @@ final class ValueObjectInvalidValueException extends InvalidArgumentException
 
     /**
      * Create exception for invalid secret key.
+     *
+     * @psalm-pure
      */
     public static function invalidSecretKey(): self
     {
@@ -39,6 +43,8 @@ final class ValueObjectInvalidValueException extends InvalidArgumentException
 
     /**
      * Create exception for invalid token.
+     *
+     * @psalm-pure
      */
     public static function invalidToken(): self
     {

@@ -20,6 +20,18 @@
             <directory name="docs"/>
         </ignoreFiles>
     </projectFiles>
+    <issueHandlers>
+        <DeprecatedMethod>
+            <errorLevel type="suppress">
+                <directory name="tests" />
+            </errorLevel>
+        </DeprecatedMethod>
+        <MissingPureAnnotation>
+            <errorLevel type="suppress">
+                <file name="tests/Unit/ValueObjects/IpAddressTest.php" />
+            </errorLevel>
+        </MissingPureAnnotation>
+    </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
     </plugins>

@@ -33,7 +33,7 @@ final class TokenTest extends TestCase
     public function emptyTokenThrowsException(): void
     {
         $this->expectException(ValueObjectInvalidValueException::class);
-        $this->expectExceptionMessage('Invalid token: cannot be empty.');
+        $this->withExceptionMessage('Invalid token: cannot be empty.');
         new Token('');
     }
 
@@ -42,5 +42,13 @@ final class TokenTest extends TestCase
     {
         $token = new Token('valid-token');
         self::assertSame('valid-token', (string) $token);
+    }
+    private function withExceptionMessage(string $message): void
+    {
+        if (method_exists($this, 'expectExceptionMessageIsOrContains')) { // PHPUnit 13+
+            $this->expectExceptionMessageIsOrContains($message);
+        } else {
+            $this->expectExceptionMessage($message);
+        }
     }
 }

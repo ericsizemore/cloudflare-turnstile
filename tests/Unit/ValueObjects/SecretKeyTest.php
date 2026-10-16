@@ -33,7 +33,7 @@ final class SecretKeyTest extends TestCase
     public function emptySecretKeyThrowsException(): void
     {
         $this->expectException(ValueObjectInvalidValueException::class);
-        $this->expectExceptionMessage('Invalid secret key: cannot be empty.');
+        $this->withExceptionMessage('Invalid secret key: cannot be empty.');
         new SecretKey('');
     }
 
@@ -42,5 +42,14 @@ final class SecretKeyTest extends TestCase
     {
         $secretKey = new SecretKey('valid-secret-key');
         self::assertSame('valid-secret-key', (string) $secretKey);
+    }
+
+    private function withExceptionMessage(string $message): void
+    {
+        if (method_exists($this, 'expectExceptionMessageIsOrContains')) { // PHPUnit 13+
+            $this->expectExceptionMessageIsOrContains($message);
+        } else {
+            $this->expectExceptionMessage($message);
+        }
     }
 }

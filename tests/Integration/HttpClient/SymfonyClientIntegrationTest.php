@@ -103,7 +103,7 @@ final class SymfonyClientIntegrationTest extends TestCase
         );
 
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Failed to decode Turnstile response');
+        $this->withExceptionMessage('Failed to decode Turnstile response');
         $this->turnstile->verify($config);
     }
 
@@ -228,5 +228,14 @@ final class SymfonyClientIntegrationTest extends TestCase
         self::assertTrue($response->isSuccess());
         self::assertSame('login', $response->getAction());
         self::assertSame('user123', $response->getCdata());
+    }
+
+    private function withExceptionMessage(string $message): void
+    {
+        if (method_exists($this, 'expectExceptionMessageIsOrContains')) { // PHPUnit 13+
+            $this->expectExceptionMessageIsOrContains($message);
+        } else {
+            $this->expectExceptionMessage($message);
+        }
     }
 }

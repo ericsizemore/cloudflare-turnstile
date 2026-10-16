@@ -80,6 +80,8 @@ final readonly class Turnstile
      * @param RequestFactoryInterface $requestFactory PSR-17 compatible request factory.
      * @param StreamFactoryInterface  $streamFactory  PSR-17 compatible stream factory.
      * @param SecretKey               $secretKey      Your Cloudflare Turnstile secret key.
+     *
+     * @psalm-pure
      */
     public function __construct(
         private ClientInterface $httpClient,

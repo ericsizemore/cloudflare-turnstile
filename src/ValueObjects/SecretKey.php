@@ -34,6 +34,8 @@ final readonly class SecretKey implements Stringable
 {
     /**
      * @throws ValueObjectInvalidValueException If the secret key is empty or invalid.
+     *
+     * @psalm-pure
      */
     public function __construct(#[SensitiveParameter] private string $value)
     {

@@ -339,7 +339,7 @@ final class TurnstileTest extends TestCase
         $config = new VerifyConfiguration(new Token('test-token'));
 
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Failed to decode Turnstile response');
+        $this->withExceptionMessage('Failed to decode Turnstile response');
 
         $this->turnstile->verify($config);
     }
@@ -359,7 +359,7 @@ final class TurnstileTest extends TestCase
         $config = new VerifyConfiguration(new Token('test-token'));
 
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Failed to decode Turnstile response');
+        $this->withExceptionMessage('Failed to decode Turnstile response');
 
         $this->turnstile->verify($config);
     }
@@ -379,7 +379,7 @@ final class TurnstileTest extends TestCase
         $config = new VerifyConfiguration(new Token('test-token'));
 
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Failed to decode Turnstile response');
+        $this->withExceptionMessage('Failed to decode Turnstile response');
 
         $this->turnstile->verify($config);
     }
@@ -438,7 +438,7 @@ final class TurnstileTest extends TestCase
         );
 
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Failed to decode Turnstile response');
+        $this->withExceptionMessage('Failed to decode Turnstile response');
 
         $this->turnstile->verify($config);
     }
@@ -555,5 +555,14 @@ final class TurnstileTest extends TestCase
         ];
 
         $bodyStream->method('__toString')->willReturn(json_encode($successResponse));
+    }
+
+    private function withExceptionMessage(string $message): void
+    {
+        if (method_exists($this, 'expectExceptionMessageIsOrContains')) { // PHPUnit 13+
+            $this->expectExceptionMessageIsOrContains($message);
+        } else {
+            $this->expectExceptionMessage($message);
+        }
     }
 }

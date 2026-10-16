@@ -43,6 +43,8 @@ final readonly class IpAddress implements Stringable
      * @param string $value The IP address to validate.
      *
      * @throws ValueObjectInvalidValueException If the IP address format is invalid.
+     *
+     * @psalm-pure
      */
     public function __construct(private string $value)
     {

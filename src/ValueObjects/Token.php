@@ -36,6 +36,8 @@ final readonly class Token implements Stringable
      * @param string $value The token value from the Turnstile widget.
      *
      * @throws ValueObjectInvalidValueException If the token is empty.
+     *
+     * @psalm-pure
      */
     public function __construct(private string $value)
     {

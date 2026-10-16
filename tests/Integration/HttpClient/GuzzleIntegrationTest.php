@@ -31,6 +31,8 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientExceptionInterface;
 
+use function method_exists;
+
 /**
  * @internal
  *
@@ -76,8 +78,7 @@ final class GuzzleIntegrationTest extends TestCase
             new ConnectException(
                 'Could not resolve host',
                 new Request('POST', 'https://challenges.cloudflare.com/turnstile/v0/siteverify'),
-                null,
-                ['errno' => CURLE_COULDNT_RESOLVE_HOST]
+                null
             )
         );
 
@@ -86,7 +87,8 @@ final class GuzzleIntegrationTest extends TestCase
         );
 
         $this->expectException(ClientExceptionInterface::class);
-        $this->expectExceptionMessage('Could not resolve host');
+
+        $this->withExceptionMessage('Could not resolve host');
 
         $this->turnstile->verify($config);
     }
@@ -125,7 +127,7 @@ final class GuzzleIntegrationTest extends TestCase
         );
 
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Failed to decode Turnstile response');
+        $this->withExceptionMessage('Failed to decode Turnstile response');
         $this->turnstile->verify($config);
     }
 
@@ -144,7 +146,7 @@ final class GuzzleIntegrationTest extends TestCase
         );
 
         $this->expectException(ClientExceptionInterface::class);
-        $this->expectExceptionMessage('Network error');
+        $this->withExceptionMessage('Network error');
 
         $this->turnstile->verify($config);
     }
@@ -212,8 +214,7 @@ final class GuzzleIntegrationTest extends TestCase
             new ConnectException(
                 'Connection timed out',
                 new Request('POST', 'https://challenges.cloudflare.com/turnstile/v0/siteverify'),
-                null,
-                ['errno' => CURLE_OPERATION_TIMEOUTED]
+                null
             )
         );
 
@@ -222,7 +223,7 @@ final class GuzzleIntegrationTest extends TestCase
         );
 
         $this->expectException(ClientExceptionInterface::class);
-        $this->expectExceptionMessage('Connection timed out');
+        $this->withExceptionMessage('Connection timed out');
 
         $this->turnstile->verify($config);
     }
@@ -254,5 +255,13 @@ final class GuzzleIntegrationTest extends TestCase
         self::assertTrue($response->isSuccess());
         self::assertSame('login', $response->getAction());
         self::assertSame('user123', $response->getCdata());
+    }
+    private function withExceptionMessage(string $message): void
+    {
+        if (method_exists($this, 'expectExceptionMessageIsOrContains')) { // PHPUnit 13+
+            $this->expectExceptionMessageIsOrContains($message);
+        } else {
+            $this->expectExceptionMessage($message);
+        }
     }
 }
