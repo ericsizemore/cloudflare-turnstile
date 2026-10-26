@@ -1215,16 +1215,16 @@
         },
         {
             "name": "composer/semver",
-            "version": "3.5.1",
+            "version": "3.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/semver.git",
-                "reference": "528948210cc46f967a4b98e83b19e76f2b504993"
+                "reference": "9dfce66f1e97360ea5e6d3e38ab14277e4cc591e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/semver/zipball/528948210cc46f967a4b98e83b19e76f2b504993",
-                "reference": "528948210cc46f967a4b98e83b19e76f2b504993",
+                "url": "https://api.github.com/repos/composer/semver/zipball/9dfce66f1e97360ea5e6d3e38ab14277e4cc591e",
+                "reference": "9dfce66f1e97360ea5e6d3e38ab14277e4cc591e",
                 "shasum": ""
             },
             "require": {
@@ -1276,7 +1276,7 @@
             "support": {
                 "irc": "ircs://irc.libera.chat:6697/composer",
                 "issues": "https://github.com/composer/semver/issues",
-                "source": "https://github.com/composer/semver/tree/3.5.1"
+                "source": "https://github.com/composer/semver/tree/3.5.2"
             },
             "funding": [
                 {
@@ -1288,7 +1288,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-05T13:12:12+00:00"
+            "time": "2026-10-22T15:37:26+00:00"
         },
         {
             "name": "composer/xdebug-handler",
@@ -1612,12 +1612,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ericsizemore/phpunit-coverage-check.git",
-                "reference": "fcbc58b54e30c3d85c82356ad13a9c48dfa1c87b"
+                "reference": "01265f996b0fd4696bdf617a8dfe48600abc5349"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ericsizemore/phpunit-coverage-check/zipball/fcbc58b54e30c3d85c82356ad13a9c48dfa1c87b",
-                "reference": "fcbc58b54e30c3d85c82356ad13a9c48dfa1c87b",
+                "url": "https://api.github.com/repos/ericsizemore/phpunit-coverage-check/zipball/01265f996b0fd4696bdf617a8dfe48600abc5349",
+                "reference": "01265f996b0fd4696bdf617a8dfe48600abc5349",
                 "shasum": ""
             },
             "require": {
@@ -1634,7 +1634,7 @@
                 "phpstan/phpstan-phpunit": "^2.0",
                 "phpstan/phpstan-strict-rules": "^2.0",
                 "phpunit/phpunit": "^12.5 || ^13.3",
-                "psalm/plugin-phpunit": "^0.19",
+                "psalm/plugin-phpunit": "^0.21",
                 "psalm/plugin-symfony": "^5.3",
                 "rector/rector": "^2.6",
                 "vimeo/psalm": "^6.17 || ^7.0"
@@ -1705,7 +1705,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-12T01:10:00+00:00"
+            "time": "2026-10-26T01:28:49+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -2679,16 +2679,16 @@
         },
         {
             "name": "justinrainbow/json-schema",
-            "version": "6.13.1",
+            "version": "6.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jsonrainbow/json-schema.git",
-                "reference": "e54aacc4c0657b3a4af4f628428d2702146828c6"
+                "reference": "bae415e135dd68260c2d020ba392850231e9b1ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/e54aacc4c0657b3a4af4f628428d2702146828c6",
-                "reference": "e54aacc4c0657b3a4af4f628428d2702146828c6",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/bae415e135dd68260c2d020ba392850231e9b1ab",
+                "reference": "bae415e135dd68260c2d020ba392850231e9b1ab",
                 "shasum": ""
             },
             "require": {
@@ -2738,9 +2738,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jsonrainbow/json-schema/issues",
-                "source": "https://github.com/jsonrainbow/json-schema/tree/6.13.1"
+                "source": "https://github.com/jsonrainbow/json-schema/tree/6.14.0"
             },
-            "time": "2026-09-30T07:42:28+00:00"
+            "time": "2026-10-24T08:53:34+00:00"
         },
         {
             "name": "kelunik/certificate",
@@ -2802,20 +2802,21 @@
         },
         {
             "name": "league/uri",
-            "version": "7.8.1",
+            "version": "7.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/uri.git",
-                "reference": "08cf38e3924d4f56238125547b5720496fac8fd4"
+                "reference": "fcc872a3d872aa13f935e0cd1887b9abb06da07f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/uri/zipball/08cf38e3924d4f56238125547b5720496fac8fd4",
-                "reference": "08cf38e3924d4f56238125547b5720496fac8fd4",
+                "url": "https://api.github.com/repos/thephpleague/uri/zipball/fcc872a3d872aa13f935e0cd1887b9abb06da07f",
+                "reference": "fcc872a3d872aa13f935e0cd1887b9abb06da07f",
                 "shasum": ""
             },
             "require": {
-                "league/uri-interfaces": "^7.8.1",
+                "ext-mbstring": "*",
+                "league/uri-interfaces": "^7.9.0",
                 "php": "^8.1",
                 "psr/http-factory": "^1"
             },
@@ -2888,7 +2889,7 @@
                 "docs": "https://uri.thephpleague.com",
                 "forum": "https://thephpleague.slack.com",
                 "issues": "https://github.com/thephpleague/uri-src/issues",
-                "source": "https://github.com/thephpleague/uri/tree/7.8.1"
+                "source": "https://github.com/thephpleague/uri/tree/7.9.0"
             },
             "funding": [
                 {
@@ -2896,20 +2897,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-15T20:22:25+00:00"
+            "time": "2026-10-16T15:19:33+00:00"
         },
         {
             "name": "league/uri-interfaces",
-            "version": "7.8.1",
+            "version": "7.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/uri-interfaces.git",
-                "reference": "85d5c77c5d6d3af6c54db4a78246364908f3c928"
+                "reference": "eb5f6d24e6a4fe0a8e9c78ded4eb1dfff1404f58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/uri-interfaces/zipball/85d5c77c5d6d3af6c54db4a78246364908f3c928",
-                "reference": "85d5c77c5d6d3af6c54db4a78246364908f3c928",
+                "url": "https://api.github.com/repos/thephpleague/uri-interfaces/zipball/eb5f6d24e6a4fe0a8e9c78ded4eb1dfff1404f58",
+                "reference": "eb5f6d24e6a4fe0a8e9c78ded4eb1dfff1404f58",
                 "shasum": ""
             },
             "require": {
@@ -2972,7 +2973,7 @@
                 "docs": "https://uri.thephpleague.com",
                 "forum": "https://thephpleague.slack.com",
                 "issues": "https://github.com/thephpleague/uri-src/issues",
-                "source": "https://github.com/thephpleague/uri-interfaces/tree/7.8.1"
+                "source": "https://github.com/thephpleague/uri-interfaces/tree/7.9.0"
             },
             "funding": [
                 {
@@ -2980,7 +2981,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-08T20:05:35+00:00"
+            "time": "2026-10-16T15:19:33+00:00"
         },
         {
             "name": "marc-mabe/php-enum",
@@ -6243,28 +6244,28 @@
         },
         {
             "name": "sebastian/git-state",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/git-state.git",
-                "reference": "792a952e0eba55b6960a48aeceb9f371aad1f76b"
+                "reference": "31a565f463686f0eefa85f899549256bf5805985"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/git-state/zipball/792a952e0eba55b6960a48aeceb9f371aad1f76b",
-                "reference": "792a952e0eba55b6960a48aeceb9f371aad1f76b",
+                "url": "https://api.github.com/repos/sebastianbergmann/git-state/zipball/31a565f463686f0eefa85f899549256bf5805985",
+                "reference": "31a565f463686f0eefa85f899549256bf5805985",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.4"
             },
             "require-dev": {
-                "phpunit/phpunit": "^13.0"
+                "phpunit/phpunit": "^13.4.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.0-dev"
+                    "dev-main": "1.1-dev"
                 }
             },
             "autoload": {
@@ -6288,7 +6289,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/git-state/issues",
                 "security": "https://github.com/sebastianbergmann/git-state/security/policy",
-                "source": "https://github.com/sebastianbergmann/git-state/tree/1.0.0"
+                "source": "https://github.com/sebastianbergmann/git-state/tree/1.1.0"
             },
             "funding": [
                 {
@@ -6308,7 +6309,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-03-21T12:54:28+00:00"
+            "time": "2026-10-21T05:59:52+00:00"
         },
         {
             "name": "sebastian/global-state",
